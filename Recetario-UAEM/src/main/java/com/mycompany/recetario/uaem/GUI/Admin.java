@@ -1,11 +1,10 @@
 package com.mycompany.recetario.uaem.GUI;
+import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 
 import javafx.geometry.*;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 
 /**
  *
@@ -49,16 +48,11 @@ public class Admin {
     }
 
     private VBox Ventanas() {
+        Ventana_Recetas recetas= new Ventana_Recetas();
         var vbox = new VBox();
-        var btn_buscar = new Button("Buscar");
-        var txt_buscar = new TextField();
-
-        vbox.setMaxSize(350, 50);
-
-        vbox.getChildren().add(btn_buscar);
-        vbox.getChildren().add(txt_buscar);
-        vbox.setSpacing(10);
-
+        
+        vbox.getChildren().add(recetas.Tarjets_Recetas());
+        
         return vbox;
     }
     
