@@ -1,6 +1,12 @@
 package com.mycompany.recetario.uaem.GUI_control;
 import com.mycompany.recetario.uaem.GUI.Login;
+import com.mycompany.recetario.uaem.GUI.Admin;
+import com.mycompany.recetario.uaem.App;
+
+
 import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
 /**
  *
  * @author You
@@ -8,11 +14,7 @@ import javafx.scene.control.*;
 public class Login_control {
     String usuario="Dul";
     String password="sri257";
-    public Login_control(Login login){
-        var lbl_usuarios=login.lbl_usuarios;
-        var lbl_admins=login.lbl_admins;
-        var lbl_usuario=login.lbl_usuario;
-        var lbl_password=login.lbl_password;
+    public Login_control(Login login, Stage stage){
         
         var txt_usuario=login.Txt_usuario();
         var psw_password=login.Psw_password();
@@ -22,42 +24,29 @@ public class Login_control {
         var btn_singin= login.Boton_singin();
         var btn_enter= login.Boton_enter();
         
-        
+        var vbox2= login.Vbox2();
+        var vbox3= login.Vbox3();
         
         btn_usuario.setOnAction(e->{
-            lbl_admins.setVisible(false);
-            lbl_usuario.setVisible(false);
-            lbl_password.setVisible(false);
-            
-            txt_usuario.setVisible(false);
-            psw_password.setVisible(false);
-            
-            btn_singin.setVisible(false);
-            
-            lbl_usuarios.setVisible(true);
-            btn_enter.setVisible(true);
+            login.mod_usuarios(vbox2,vbox3);
         });
         
         btn_admin.setOnAction(e->{
-            lbl_admins.setVisible(true);
-            lbl_usuario.setVisible(true);
-            lbl_password.setVisible(true);
-            
-            txt_usuario.setVisible(true);
-            psw_password.setVisible(true);
-            
-            btn_singin.setVisible(true);
-            
-            
-            lbl_usuarios.setVisible(false);
-            btn_enter.setVisible(false);
+            login.mod_admins(vbox2,vbox3);
         });
         
         btn_singin.setOnAction(e->{
+            Admin admin= new Admin();
+            Stage admin_stage= new Stage();
             var alert= new Alert(Alert.AlertType.CONFIRMATION);
+            
             if(usuario.equals(txt_usuario.getText())&& password.equals(psw_password.getText())){
                 alert.setContentText("Bienvenido");
                 alert.showAndWait();
+                admin_stage.setScene(admin.Admin());
+                admin_stage.setResizable(false);
+                admin_stage.show();
+                stage.close();
             }else{
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("Usuario o Password Incorrectos");
@@ -67,4 +56,6 @@ public class Login_control {
             psw_password.setText("");
         });
     }
+    
+    
 }

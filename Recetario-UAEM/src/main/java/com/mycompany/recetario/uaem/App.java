@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         Login login= new Login();
-        Login_control login_control= new Login_control(login);
+        Login_control login_control= new Login_control(login,stage);
         
         stage.setScene(login.Obtener_Scene());
         stage.setResizable(false);
