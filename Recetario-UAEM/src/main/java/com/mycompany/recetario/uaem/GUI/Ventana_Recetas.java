@@ -9,7 +9,6 @@ import javafx.scene.layout.*;
  * @author You
  */
 public class Ventana_Recetas {
-//    private Scene scene;
     public VBox Tarjets_Recetas(){
         var vbox= new VBox();
         

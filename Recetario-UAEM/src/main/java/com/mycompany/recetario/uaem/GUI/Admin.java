@@ -1,7 +1,7 @@
 package com.mycompany.recetario.uaem.GUI;
-import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 
-import javafx.geometry.*;
+import com.mycompany.recetario.uaem.GUI_control.Admin_control;
+
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -12,49 +12,75 @@ import javafx.scene.layout.*;
  */
 public class Admin {
 
+    Ventana_Recetas recetas = new Ventana_Recetas();
     private Scene scene;
+    private VBox ventanas;
+    private Button btn_home, btn_agregar, btn_clas, btn_ver_us;
 
-    public Scene Admin() {
+    public Admin() {
         var grid = new GridPane();
-        var ventanas = Ventanas();
-        var menu = Menu();
-
-        grid.add(ventanas, 1, 0);
-        grid.add(menu, 0, 0);
+        var menu = new VBox();
         
-        scene = new Scene(grid, 500, 500);
+        var lbl_app = new Label("Recetario UAEM");
+        var lbl_menu = new Label("Menu");
+        var lbl_clas = new Label("Clasificacion");
+        
+        btn_home = new Button("Home");
+        btn_home.setMinWidth(150);
+        btn_agregar = new Button("Agregar Receta");
+        btn_agregar.setMinWidth(150);
+        btn_clas = new Button("Agregar Clasificacion");
+        btn_clas.setMinWidth(150);
+        btn_ver_us = new Button("Vista de Usuario");
+        btn_ver_us.setMinWidth(150);
+        
+        var clasificacion = new ComboBox();
+        clasificacion.setPromptText("Selecciona Opcion");
+        clasificacion.setMinWidth(150);
 
+        menu.setMaxSize(150, 500);
+        menu.getChildren().add(lbl_app);
+        menu.getChildren().add(lbl_menu);
+        menu.getChildren().add(btn_home);
+        menu.getChildren().add(btn_agregar);
+        menu.getChildren().add(btn_clas);
+        menu.getChildren().add(btn_ver_us);
+        menu.getChildren().add(lbl_clas);
+        menu.getChildren().add(clasificacion);
+
+        menu.setSpacing(10);
+        
+        ventanas = new VBox();
+        grid.add(Ventanas(), 1, 0);
+        grid.add(menu, 0, 0);
+
+        scene = new Scene(grid, 500, 500);
+    }
+
+    public VBox Ventanas() {
+
+        ventanas.getChildren().add(recetas.Tarjets_Recetas());
+
+        return ventanas;
+    }
+    
+    public Scene scene_Admin(){
         return scene;
     }
 
-    private VBox Menu() {
-        var vbox = new VBox();
-        var btn_agregar = new Button("Agregar Receta");
-        btn_agregar.setMinWidth(150);
-        var btn_clas = new Button("Agregar Clasificacion");
-        btn_clas.setMinWidth(150);
-        var btn_ver_us = new Button("Vista de Usuario");
-        btn_ver_us.setMinWidth(150);
-
-        vbox.setMaxSize(150, 500);
-        vbox.getChildren().add(btn_agregar);
-        vbox.getChildren().add(btn_clas);
-        vbox.getChildren().add(btn_ver_us);
-
-        vbox.setSpacing(10);
-        vbox.setAlignment(Pos.CENTER);
-
-        return vbox;
+    public Button Btn_home() {
+        return btn_home;
     }
 
-    private VBox Ventanas() {
-        Ventana_Recetas recetas= new Ventana_Recetas();
-        var vbox = new VBox();
-        
-        vbox.getChildren().add(recetas.Tarjets_Recetas());
-        
-        return vbox;
+    public Button Btn_agregar() {
+        return btn_agregar;
     }
-    
-    
+
+    public Button Btn_clas() {
+        return btn_clas;
+    }
+
+    public Button Btn_ver_us() {
+        return btn_ver_us;
+    }
 }
