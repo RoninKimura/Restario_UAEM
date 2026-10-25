@@ -29,7 +29,7 @@ public class Admin {
         btn_home.setMinWidth(150);
         btn_agregar = new Button("Agregar Receta");
         btn_agregar.setMinWidth(150);
-        btn_clas = new Button("Agregar Clasificacion");
+        btn_clas = new Button("Manegar Clasificaciones");
         btn_clas.setMinWidth(150);
         btn_ver_us = new Button("Vista de Usuario");
         btn_ver_us.setMinWidth(150);
