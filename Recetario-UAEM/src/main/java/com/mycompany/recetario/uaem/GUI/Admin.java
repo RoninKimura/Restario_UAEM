@@ -2,6 +2,7 @@ package com.mycompany.recetario.uaem.GUI;
 
 import com.mycompany.recetario.uaem.GUI_control.Admin_control;
 
+
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -37,7 +38,7 @@ public class Admin {
         var clasificacion = new ComboBox();
         clasificacion.setPromptText("Selecciona Opcion");
         clasificacion.setMinWidth(150);
-
+        
         menu.setMaxSize(150, 500);
         menu.getChildren().add(lbl_app);
         menu.getChildren().add(lbl_menu);

@@ -13,53 +13,97 @@ import javafx.scene.paint.Color;
 public class Clasificacion_Control {
 
     AdminClasificaciones clasificaciones = new AdminClasificaciones();
+    private ComboBox choose_clasificacion;
     private TextField txt_nombre;
     private TextArea txt_descripcion;
+    private Color color;
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion) {
-        var choose_clasificacion=ventana_clasificacion.Combo_Box();
+        choose_clasificacion = ventana_clasificacion.Combo_Box();
         txt_nombre = ventana_clasificacion.Txt_Nombre();
         txt_descripcion = ventana_clasificacion.Txt_Descripcion();
-        var color = ventana_clasificacion.Color();
+        color = ventana_clasificacion.Color();
         var btn_agregar = ventana_clasificacion.Btn_Agregar();
         var btn_editar = ventana_clasificacion.Btn_Editar();
         var btn_eliminar = ventana_clasificacion.Btn_Eliminar();
         var btn_limpiar = ventana_clasificacion.Btn_Limpiar();
-        
-        
-        
+
         btn_agregar.setOnAction(e -> {
             String nombre = txt_nombre.getText();
             String descripcion = txt_descripcion.getText();
-
-            Clasificacion clasificacion = new Clasificacion(nombre, descripcion, color);
-            
-            clasificaciones.Agregar(clasificacion);
-            
-            choose_clasificacion.getItems().add(clasificacion);
-            
+            if (NoVacios(nombre, descripcion)) {
+                Clasificacion clasificacion = new Clasificacion(nombre, descripcion, color);
+                if (clasificaciones.ExisteNombre(nombre)) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText(nombre + " Ya Existe");
+                    alert.showAndWait();
+                } else {
+                    clasificaciones.Agregar(clasificacion);
+                    choose_clasificacion.getItems().add(clasificacion);
+                }
+            }
             Limpiar();
         });
 
-        btn_editar.setOnAction(e->{
-            
+        choose_clasificacion.setOnAction(e -> {
+            Clasificacion seleccion = (Clasificacion) choose_clasificacion.getValue();
+            txt_nombre.setText(seleccion.getNombre());
+            txt_descripcion.setText(seleccion.getDescripcion());
+        });
+
+        btn_editar.setOnAction(e -> {
             String nombre = txt_nombre.getText();
-            clasificaciones.Editar(nombre);
+            String descripcion = txt_descripcion.getText();
+            if (NoVacios(nombre, descripcion)) {
+                int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
+                if (clasificaciones.ExisteNombreE(nombre,id)) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText(nombre + " Ya Existe");
+                    alert.showAndWait();
+                } else {
+                    clasificaciones.Editar(id, nombre, descripcion, color);
+                }
+            }
+            Limpiar();
         });
 
         btn_eliminar.setOnAction(e -> {
             String nombre = txt_nombre.getText();
-            clasificaciones.Eliminar(nombre);
+            String descripcion = txt_descripcion.getText();
+            if (NoVacios(nombre, descripcion)) {
+                if (!clasificaciones.ExisteNombre(nombre)) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText(nombre + " No Existe");
+                    alert.showAndWait();
+                } else {
+                    int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
+                    clasificaciones.Eliminar(id);
+                    choose_clasificacion.getItems().remove(id);
+                }
+            }
             Limpiar();
         });
-        
-        btn_limpiar.setOnAction(e->{
+
+        btn_limpiar.setOnAction(e -> {
             Limpiar();
         });
     }
-    
-    public void Limpiar(){
+
+    private void Limpiar() {
         txt_nombre.setText("");
         txt_descripcion.setText("");
+        choose_clasificacion.setValue("");
+    }
+
+    private boolean NoVacios(String nombre, String descripcion) {
+        if (nombre.equals("") || descripcion.equals("")) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Por Favor llene todos lo campos");
+            alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
     }
 }

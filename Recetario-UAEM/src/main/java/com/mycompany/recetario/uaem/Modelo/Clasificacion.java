@@ -25,4 +25,19 @@ public class Clasificacion {
     public Color getColor(){
         return Color;
     }
+    
+    public void setNombre(String Nombre){
+        this.Nombre=Nombre;
+    }
+    public void setDescripcion(String Descripcion){
+        this.Descripcion=Descripcion;
+    }
+    public void setColor(Color Color){
+        this.Color=Color;
+    }
+    
+    @Override
+    public String toString() {
+        return Nombre;
+    }
 }
