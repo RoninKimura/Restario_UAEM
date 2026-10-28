@@ -1,5 +1,4 @@
 package com.mycompany.recetario.uaem.GUI;
-
 import com.mycompany.recetario.uaem.GUI_control.Admin_control;
 
 
@@ -12,11 +11,12 @@ import javafx.scene.layout.*;
  * @author You
  */
 public class Admin {
-
+    
     Ventana_Recetas recetas = new Ventana_Recetas();
     private Scene scene;
     private VBox ventanas;
     private Button btn_home, btn_agregar, btn_clas, btn_ver_us;
+    private ComboBox clasificacion;
 
     public Admin() {
         var grid = new GridPane();
@@ -34,8 +34,8 @@ public class Admin {
         btn_clas.setMinWidth(150);
         btn_ver_us = new Button("Vista de Usuario");
         btn_ver_us.setMinWidth(150);
-        
-        var clasificacion = new ComboBox();
+
+        clasificacion = new ComboBox();
         clasificacion.setPromptText("Selecciona Opcion");
         clasificacion.setMinWidth(150);
         
@@ -83,5 +83,9 @@ public class Admin {
 
     public Button Btn_ver_us() {
         return btn_ver_us;
+    }
+    
+    public ComboBox ComboBox_Admin(){
+        return clasificacion;
     }
 }

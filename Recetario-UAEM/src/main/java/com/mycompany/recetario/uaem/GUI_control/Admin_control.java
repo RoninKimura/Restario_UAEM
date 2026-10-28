@@ -1,4 +1,5 @@
 package com.mycompany.recetario.uaem.GUI_control;
+import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
 import com.mycompany.recetario.uaem.GUI.Ventana_Clasificacion;
@@ -14,7 +15,7 @@ public class Admin_control {
     public Admin_control(Admin admin,Stage stage){
         Ventana_Agregar agregar= new Ventana_Agregar();
         Ventana_Clasificacion clasificacion= new Ventana_Clasificacion();
-        Clasificacion_Control clasificacion_control=new Clasificacion_Control(clasificacion);
+        Clasificacion_Control clasificacion_control=new Clasificacion_Control(clasificacion,admin);
         
         var btn_agregar = admin.Btn_agregar();
         var btn_clas= admin.Btn_clas();

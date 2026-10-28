@@ -1,5 +1,5 @@
 package com.mycompany.recetario.uaem.GUI_control;
-
+import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Clasificacion;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
@@ -13,14 +13,16 @@ import javafx.scene.paint.Color;
 public class Clasificacion_Control {
 
     AdminClasificaciones clasificaciones = new AdminClasificaciones();
-    private ComboBox choose_clasificacion;
+
+    private ComboBox choose_clasificacion,choose_clasificaciones;
     private TextField txt_nombre;
     private TextArea txt_descripcion;
     private Color color;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion) {
+    public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion,Admin admin) {
         choose_clasificacion = ventana_clasificacion.Combo_Box();
+        choose_clasificaciones = admin.ComboBox_Admin();
         txt_nombre = ventana_clasificacion.Txt_Nombre();
         txt_descripcion = ventana_clasificacion.Txt_Descripcion();
         color = ventana_clasificacion.Color();
@@ -41,6 +43,7 @@ public class Clasificacion_Control {
                 } else {
                     clasificaciones.Agregar(clasificacion);
                     choose_clasificacion.getItems().add(clasificacion);
+                    choose_clasificaciones.getItems().add(clasificacion);
                 }
             }
             Limpiar();
@@ -57,7 +60,7 @@ public class Clasificacion_Control {
             String descripcion = txt_descripcion.getText();
             if (NoVacios(nombre, descripcion)) {
                 int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
-                if (clasificaciones.ExisteNombreE(nombre,id)) {
+                if (clasificaciones.ExisteNombreE(nombre, id)) {
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText(nombre + " Ya Existe");
                     alert.showAndWait();
