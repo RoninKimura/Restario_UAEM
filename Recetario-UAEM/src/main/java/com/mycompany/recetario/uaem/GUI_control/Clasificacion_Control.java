@@ -1,5 +1,7 @@
 package com.mycompany.recetario.uaem.GUI_control;
+
 import com.mycompany.recetario.uaem.GUI.Admin;
+import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
 import com.mycompany.recetario.uaem.GUI.Ventana_Clasificacion;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
@@ -14,18 +16,21 @@ public class Clasificacion_Control {
 
     AdminClasificaciones clasificaciones = new AdminClasificaciones();
 
-    private ComboBox choose_clasificacion,choose_clasificaciones;
+    private ComboBox choose_clasificacion, choose_clasificaciones, txt_Clasificacion;
     private TextField txt_nombre;
     private TextArea txt_descripcion;
     private Color color;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion,Admin admin) {
+    public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion,
+            Admin admin, Ventana_Agregar agregar) {
         choose_clasificacion = ventana_clasificacion.Combo_Box();
         choose_clasificaciones = admin.ComboBox_Admin();
+        txt_Clasificacion = agregar.Clasificacion();
         txt_nombre = ventana_clasificacion.Txt_Nombre();
         txt_descripcion = ventana_clasificacion.Txt_Descripcion();
         color = ventana_clasificacion.Color();
+        
         var btn_agregar = ventana_clasificacion.Btn_Agregar();
         var btn_editar = ventana_clasificacion.Btn_Editar();
         var btn_eliminar = ventana_clasificacion.Btn_Eliminar();
@@ -44,6 +49,7 @@ public class Clasificacion_Control {
                     clasificaciones.Agregar(clasificacion);
                     choose_clasificacion.getItems().add(clasificacion);
                     choose_clasificaciones.getItems().add(clasificacion);
+                    txt_Clasificacion.getItems().add(clasificacion);
                 }
             }
             Limpiar();
@@ -96,7 +102,7 @@ public class Clasificacion_Control {
     private void Limpiar() {
         txt_nombre.setText("");
         txt_descripcion.setText("");
-        choose_clasificacion.setValue("");
+        choose_clasificacion.setValue(null);
     }
 
     private boolean NoVacios(String nombre, String descripcion) {

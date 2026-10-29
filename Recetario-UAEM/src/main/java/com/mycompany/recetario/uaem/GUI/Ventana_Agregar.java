@@ -9,12 +9,16 @@ import javafx.scene.layout.*;
  * @author You
  */
 public class Ventana_Agregar {
+    
+    private VBox vbox;
+    
     private TextField txt_titulo;
     private TextArea txt_descripcion,txt_ingredientes, txt_procedimiento;
     private ComboBox txt_clasificacion;
     private Button btn_agregar, btn_cancelar;
-    public VBox Ventana_Agregar(){
-        var vbox= new VBox();
+    
+    public Ventana_Agregar(){
+        vbox= new VBox();
         var hbox= new HBox();
         var lbl_imagen= new Label("Imagen");
         var lbl_titulo= new Label("Titulo");
@@ -54,7 +58,29 @@ public class Ventana_Agregar {
         vbox.getChildren().add(hbox);
         
         vbox.setSpacing(10);
-        
+    }
+    public VBox VBox_Agregar(){
         return vbox;
+    }
+    public TextField Titulo(){
+        return txt_titulo;
+    }
+    public TextArea Descripcion(){
+        return txt_descripcion;
+    }
+    public ComboBox Clasificacion(){
+        return txt_clasificacion;
+    }
+    public TextArea Ingredientes(){
+        return txt_ingredientes;
+    }
+    public TextArea Prodecimiento(){
+        return txt_procedimiento;
+    }
+    public Button Btn_Agregar(){
+        return btn_agregar;
+    }
+    public Button Btn_Cancelar(){
+        return btn_cancelar;
     }
 }

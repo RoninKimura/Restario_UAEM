@@ -1,7 +1,6 @@
 package com.mycompany.recetario.uaem.GUI;
 import com.mycompany.recetario.uaem.GUI_control.Admin_control;
 
-
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -59,7 +58,7 @@ public class Admin {
     }
 
     public VBox Ventanas() {
-
+        ventanas.getChildren().clear();
         ventanas.getChildren().add(recetas.Tarjets_Recetas());
 
         return ventanas;
