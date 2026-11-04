@@ -13,11 +13,16 @@ public class AdminRecetas {
         System.out.print(recetas.size());
     }
     
-    public void Editar(){
+    public void Editar(String Titulo,String Descripcion,String Clasificacion,
+            String Ingredientes,String Procedimiento){
         
     }
     
-    public void Eliminar(){
-        
+    public void Eliminar(Receta receta){
+        recetas.remove(receta);
+    }
+    
+    public ArrayList<Receta> Obtener_Recetas(){
+        return recetas;
     }
 }

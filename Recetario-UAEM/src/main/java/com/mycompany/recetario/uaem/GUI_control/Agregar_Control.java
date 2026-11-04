@@ -4,6 +4,7 @@ import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
 import com.mycompany.recetario.uaem.GUI.Admin;
+import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
 import javafx.scene.control.*;
 
@@ -12,14 +13,12 @@ import javafx.scene.control.*;
  * @author You
  */
 public class Agregar_Control {
-    
-    AdminRecetas recetas= new AdminRecetas();
-    
+        
     private TextField txt_Titulo;
     private ComboBox txt_Clasificacion;
     private TextArea txt_Descripcion, txt_Ingredientes, txt_Procedimiento;
 
-    public Agregar_Control(Ventana_Agregar agregar,Admin admin) {
+    public Agregar_Control(Ventana_Agregar agregar,AdminRecetas recetas,Admin admin, Ventana_Recetas mostrar_recetas) {
         txt_Titulo = agregar.Titulo();
         txt_Descripcion = agregar.Descripcion();
         txt_Clasificacion= agregar.Clasificacion();
@@ -38,11 +37,13 @@ public class Agregar_Control {
             Receta receta = new Receta(Titulo, Descripcion, clasificacion.getNombre(),
                     Ingredientes, Procedimiento);
             recetas.Agregar(receta);
+            
+            
             Limpiar();
         });
 
         btn_Cancelar.setOnAction(e -> {
-            admin.Ventanas();
+            admin.Ventanas(mostrar_recetas);
         });
     }
     

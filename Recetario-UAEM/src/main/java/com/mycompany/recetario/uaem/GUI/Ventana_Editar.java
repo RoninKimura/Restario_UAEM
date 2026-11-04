@@ -7,12 +7,13 @@ import javafx.scene.layout.*;
  * @author You
  */
 public class Ventana_Editar {
+    private VBox vbox;
     private TextField txt_titulo;
     private TextArea txt_descripcion,txt_ingredientes, txt_procedimiento;
     private ComboBox txt_clasificacion;
     private Button btn_agregar, btn_cancelar;
-    public VBox Ventana_Editar(){
-        var vbox= new VBox();
+    public Ventana_Editar(){
+        vbox= new VBox();
         var hbox= new HBox();
         
         var lbl_imagen= new Label("Imagen");
@@ -53,7 +54,9 @@ public class Ventana_Editar {
         vbox.getChildren().add(hbox);
         
         vbox.setSpacing(10);
-        
+    }
+    
+    public VBox VBox_Editar(){
         return vbox;
     }
 }

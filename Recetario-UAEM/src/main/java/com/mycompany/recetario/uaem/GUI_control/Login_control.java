@@ -1,5 +1,6 @@
 package com.mycompany.recetario.uaem.GUI_control;
 
+import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Login;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI_control.Admin_control;
@@ -40,9 +41,10 @@ public class Login_control {
         });
 
         btn_singin.setOnAction(e -> {
-            Admin admin = new Admin();
+            Ventana_Recetas mostrar_recetas= new Ventana_Recetas();
+            Admin admin = new Admin(mostrar_recetas);
             Stage admin_stage = new Stage();
-            Admin_control admin_control = new Admin_control(admin,admin_stage);
+            Admin_control admin_control = new Admin_control(admin,admin_stage,mostrar_recetas);
             var alert = new Alert(Alert.AlertType.CONFIRMATION);
 
             if (usuario.equals(txt_usuario.getText()) && password.equals(psw_password.getText())) {
