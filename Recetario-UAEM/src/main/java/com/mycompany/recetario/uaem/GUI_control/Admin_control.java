@@ -15,12 +15,14 @@ import javafx.stage.*;
  */
 public class Admin_control {
 
-    public Admin_control(Admin admin, Stage stage,Ventana_Recetas mostrar_recetas) {
+    public Admin_control(Admin admin, Stage stage, Ventana_Recetas mostrar_recetas) {
         AdminRecetas recetas = new AdminRecetas();
-        Ventana_Agregar agregar = new Ventana_Agregar();
-        Agregar_Control agregar_control = new Agregar_Control(agregar, recetas, admin, mostrar_recetas);
         Ventana_Editar editar = new Ventana_Editar();
-        Recetas_Control recetas_control = new Recetas_Control(editar, mostrar_recetas, recetas, admin);
+        Recetas_Control recetas_control = new Recetas_Control(editar,
+                mostrar_recetas, recetas, admin);
+        Ventana_Agregar agregar = new Ventana_Agregar();
+        Agregar_Control agregar_control = new Agregar_Control(agregar, recetas,
+                admin, mostrar_recetas, recetas_control);
         Ventana_Clasificacion clasificacion = new Ventana_Clasificacion();
         Clasificacion_Control clasificacion_control = new Clasificacion_Control(clasificacion, admin, agregar);
 

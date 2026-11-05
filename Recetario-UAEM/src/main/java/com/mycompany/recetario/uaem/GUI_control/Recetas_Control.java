@@ -13,21 +13,32 @@ import java.util.ArrayList;
  * @author You
  */
 public class Recetas_Control {
+    private final Ventana_Editar editar;
+    private final Ventana_Recetas mostrar_recetas;
+    private final AdminRecetas recetas;
+    private final Admin admin;
 
-    public Recetas_Control(Ventana_Editar editar,
-            Ventana_Recetas mostrar_recetas, AdminRecetas recetas, Admin admin) {
+    public Recetas_Control(Ventana_Editar editar, Ventana_Recetas mostrar_recetas,
+            AdminRecetas recetas, Admin admin) {
+        this.editar = editar;
+        this.mostrar_recetas = mostrar_recetas;
+        this.recetas = recetas;
+        this.admin = admin;
+        Actualizar_Tarjetas();
+    }
+
+    public void Actualizar_Tarjetas() {
         var flow = mostrar_recetas.Obtener_Tarjetas();
-        ArrayList<Receta> recets = recetas.Obtener_Recetas();
+        flow.getChildren().clear();
 
-        for (int d = 0; d < recetas.Obtener_Recetas().size(); d++) {
-            Tarjetas_Recetas tarjetas = new Tarjetas_Recetas();
-            Tarjetas_Control trajetas_control = new Tarjetas_Control(tarjetas, admin, editar,mostrar_recetas);
+        for (Receta r : recetas.Obtener_Recetas()) {
+            Tarjetas_Recetas tarjeta = new Tarjetas_Recetas();
+            tarjeta.Titulo = r.getTitulo();
+            tarjeta.Descripcion = r.getDescripcion();
+            tarjeta.Clasificacion = r.getCalsificacion();
 
-            tarjetas.Titulo = recets.get(d).getTitulo();
-            tarjetas.Descripcion = recets.get(d).getDescripcion();
-            tarjetas.Clasificacion = recets.get(d).getCalsificacion();
-
-            flow.getChildren().add(tarjetas.Tarjetas_Recetas());
+            flow.getChildren().add(tarjeta.Tarjetas_Recetas()); // primero se crean los botones
+            new Tarjetas_Control(tarjeta, admin, editar, mostrar_recetas); // luego se conectan
         }
     }
 }
