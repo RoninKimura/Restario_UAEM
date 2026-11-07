@@ -43,7 +43,7 @@ public class Recetas_Control {
             tarjeta.Clasificacion = r.getCalsificacion();
 
             flow.getChildren().add(tarjeta.Tarjetas_Recetas()); // primero se crean los botones
-            new Tarjetas_Control(recetas,tarjeta, admin, editar,editar_control,mostrar_recetas); // luego se conectan
+            new Tarjetas_Control(recetas,tarjeta, admin, editar,editar_control,mostrar_recetas,this); // luego se conectan
         }
     }
 }

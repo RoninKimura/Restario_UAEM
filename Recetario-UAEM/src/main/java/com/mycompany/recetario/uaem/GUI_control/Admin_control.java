@@ -18,14 +18,15 @@ public class Admin_control {
     public Admin_control(Admin admin, Stage stage, Ventana_Recetas mostrar_recetas) {
         AdminRecetas recetas = new AdminRecetas();
         Ventana_Editar editar = new Ventana_Editar();
-        Editar_Control editar_control = new Editar_Control(editar,recetas);
+        Editar_Control editar_control = new Editar_Control(editar, recetas, admin, mostrar_recetas);
         Recetas_Control recetas_control = new Recetas_Control(editar,
-                mostrar_recetas, recetas, admin,editar_control);
+                mostrar_recetas, recetas, admin, editar_control);
+        editar_control.tomaRecetasControl(recetas_control);
         Ventana_Agregar agregar = new Ventana_Agregar();
         Agregar_Control agregar_control = new Agregar_Control(agregar, recetas,
                 admin, mostrar_recetas, recetas_control);
         Ventana_Clasificacion clasificacion = new Ventana_Clasificacion();
-        Clasificacion_Control clasificacion_control = new Clasificacion_Control(clasificacion, admin, agregar);
+        Clasificacion_Control clasificacion_control = new Clasificacion_Control(clasificacion, admin, agregar,editar);
 
         var btn_home = admin.Btn_home();
         var btn_agregar = admin.Btn_agregar();

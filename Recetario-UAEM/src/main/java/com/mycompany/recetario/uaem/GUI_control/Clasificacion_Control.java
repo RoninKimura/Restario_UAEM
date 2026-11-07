@@ -2,6 +2,7 @@ package com.mycompany.recetario.uaem.GUI_control;
 
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
+import com.mycompany.recetario.uaem.GUI.Ventana_Editar;
 import com.mycompany.recetario.uaem.GUI.Ventana_Clasificacion;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
@@ -16,17 +17,18 @@ public class Clasificacion_Control {
 
     AdminClasificaciones clasificaciones = new AdminClasificaciones();
 
-    private ComboBox choose_clasificacion, choose_clasificaciones, txt_Clasificacion;
+    private ComboBox choose_clasificacion, choose_clasificaciones, txt_Clasificacion,txt_clasificacion;
     private TextField txt_nombre;
     private TextArea txt_descripcion;
     private Color color;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion,
-            Admin admin, Ventana_Agregar agregar) {
+            Admin admin, Ventana_Agregar agregar, Ventana_Editar editar) {
         choose_clasificacion = ventana_clasificacion.Combo_Box();
         choose_clasificaciones = admin.ComboBox_Admin();
         txt_Clasificacion = agregar.Clasificacion();
+        txt_clasificacion = editar.Clasificacion();
         txt_nombre = ventana_clasificacion.Txt_Nombre();
         txt_descripcion = ventana_clasificacion.Txt_Descripcion();
         color = ventana_clasificacion.Color();
@@ -50,6 +52,7 @@ public class Clasificacion_Control {
                     choose_clasificacion.getItems().add(clasificacion);
                     choose_clasificaciones.getItems().add(clasificacion);
                     txt_Clasificacion.getItems().add(clasificacion);
+                    txt_clasificacion.getItems().add(clasificacion);
                 }
             }
             Limpiar();

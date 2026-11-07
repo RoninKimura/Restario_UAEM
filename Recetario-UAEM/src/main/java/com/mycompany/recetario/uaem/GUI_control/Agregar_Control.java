@@ -35,6 +35,9 @@ public class Agregar_Control {
             String Titulo = txt_Titulo.getText();
             String Descripcion = txt_Descripcion.getText();
             Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
+            if (clasificacion == null) {
+                return;
+            }
             String Ingredientes = txt_Ingredientes.getText();
             String Procedimiento = txt_Procedimiento.getText();
             Receta receta = new Receta(recetas.ID(), Titulo, Descripcion, clasificacion.getNombre(),

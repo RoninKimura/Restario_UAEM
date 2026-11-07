@@ -13,7 +13,9 @@ import javafx.scene.control.Button;
 
 public class Tarjetas_Control {
     private Button btn_editar, btn_eliminar;
-    public Tarjetas_Control(AdminRecetas recetas,Tarjetas_Recetas tarjetas,Admin admin,Ventana_Editar editar,Editar_Control editar_control, Ventana_Recetas mostrar_recetas){
+    public Tarjetas_Control(AdminRecetas recetas,Tarjetas_Recetas tarjetas,
+            Admin admin,Ventana_Editar editar,Editar_Control editar_control, 
+            Ventana_Recetas mostrar_recetas, Recetas_Control recetas_control){
         btn_editar=tarjetas.btn_editar();
         btn_eliminar=tarjetas.btn_eliminar();
         
@@ -23,6 +25,12 @@ public class Tarjetas_Control {
             var vbox=admin.Ventanas(mostrar_recetas);
             vbox.getChildren().clear();
             vbox.getChildren().add(editar.VBox_Editar());
+        });
+        
+        btn_eliminar.setOnAction(e->{
+            Receta r=recetas.Buscar(tarjetas.id);
+            recetas.Eliminar(r.getid());
+            recetas_control.Actualizar_Tarjetas();
         });
     }
 }
