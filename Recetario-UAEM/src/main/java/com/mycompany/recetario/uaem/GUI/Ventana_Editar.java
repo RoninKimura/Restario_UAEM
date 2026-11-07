@@ -11,7 +11,7 @@ public class Ventana_Editar {
     private TextField txt_titulo;
     private TextArea txt_descripcion,txt_ingredientes, txt_procedimiento;
     private ComboBox txt_clasificacion;
-    private Button btn_agregar, btn_cancelar;
+    private Button btn_editar, btn_cancelar;
     public Ventana_Editar(){
         vbox= new VBox();
         var hbox= new HBox();
@@ -29,10 +29,10 @@ public class Ventana_Editar {
         txt_ingredientes= new TextArea();
         txt_procedimiento= new TextArea();
         
-        btn_agregar=new Button("Editar");
+        btn_editar=new Button("Editar");
         btn_cancelar=new Button("Cancelar");
         
-        hbox.getChildren().add(btn_agregar);
+        hbox.getChildren().add(btn_editar);
         hbox.getChildren().add(btn_cancelar);
         
         hbox.setSpacing(10);
@@ -58,5 +58,27 @@ public class Ventana_Editar {
     
     public VBox VBox_Editar(){
         return vbox;
+    }
+    public TextField Titulo(){
+        return txt_titulo;
+    }
+    public TextArea Descripcion(){
+        return txt_descripcion;
+    }
+    public TextArea Ingredientes(){
+        return txt_ingredientes;
+    }
+    public TextArea Procedimiento(){
+        return txt_procedimiento;
+    }
+    public ComboBox Clasificacion(){
+        return txt_clasificacion;
+    }
+    
+    public Button btnEditar(){
+        return btn_editar;
+    }
+    public Button btnCancelar(){
+        return btn_cancelar;
     }
 }

@@ -37,7 +37,7 @@ public class Agregar_Control {
             Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
             String Ingredientes = txt_Ingredientes.getText();
             String Procedimiento = txt_Procedimiento.getText();
-            Receta receta = new Receta(Titulo, Descripcion, clasificacion.getNombre(),
+            Receta receta = new Receta(recetas.ID(), Titulo, Descripcion, clasificacion.getNombre(),
                     Ingredientes, Procedimiento);
             recetas.Agregar(receta);
             recetas_control.Actualizar_Tarjetas();

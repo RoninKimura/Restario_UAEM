@@ -18,8 +18,9 @@ public class Admin_control {
     public Admin_control(Admin admin, Stage stage, Ventana_Recetas mostrar_recetas) {
         AdminRecetas recetas = new AdminRecetas();
         Ventana_Editar editar = new Ventana_Editar();
+        Editar_Control editar_control = new Editar_Control(editar,recetas);
         Recetas_Control recetas_control = new Recetas_Control(editar,
-                mostrar_recetas, recetas, admin);
+                mostrar_recetas, recetas, admin,editar_control);
         Ventana_Agregar agregar = new Ventana_Agregar();
         Agregar_Control agregar_control = new Agregar_Control(agregar, recetas,
                 admin, mostrar_recetas, recetas_control);

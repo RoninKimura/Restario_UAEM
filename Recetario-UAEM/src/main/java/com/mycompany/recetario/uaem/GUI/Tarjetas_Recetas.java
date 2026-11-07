@@ -11,13 +11,15 @@ import javafx.scene.layout.VBox;
  * @author You
  */
 public class Tarjetas_Recetas {
+    public int id;
     public String Titulo,Descripcion,Clasificacion;
-    private Button btn_editar, btn_eliminar;
+    private HBox hbox;
+    private Button btn_editar, btn_eliminar,btn_ver,btn_download;
 
     public VBox Tarjetas_Recetas() {
         var vbox_tarjeta = new VBox();
         var vbox = new VBox();
-        var hbox = new HBox();
+        hbox = new HBox();
 
         var lbl_image = new Label();
         var lbl_titulo = new Label(Titulo);
@@ -34,6 +36,9 @@ public class Tarjetas_Recetas {
 
         btn_editar = new Button("Editar");
         btn_eliminar = new Button("Eliminar");
+        
+        btn_ver= new Button("Ver Receta");
+        btn_download= new Button("Descargar Receta");
 
         hbox.getChildren().add(btn_editar);
         hbox.getChildren().add(btn_eliminar);
@@ -53,5 +58,14 @@ public class Tarjetas_Recetas {
     }
     public Button btn_eliminar(){
         return btn_eliminar;
+    }
+    public Button btn_ver(){
+        return btn_ver;
+    }
+    public HBox mod_users(){
+        hbox.getChildren().clear();
+        hbox.getChildren().add(btn_ver);
+        hbox.getChildren().add(btn_download);
+        return hbox;
     }
 }
