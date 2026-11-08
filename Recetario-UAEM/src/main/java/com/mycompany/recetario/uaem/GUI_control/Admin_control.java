@@ -1,6 +1,7 @@
 package com.mycompany.recetario.uaem.GUI_control;
 
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
+import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
@@ -15,8 +16,7 @@ import javafx.stage.*;
  */
 public class Admin_control {
 
-    public Admin_control(Admin admin, Stage stage, Ventana_Recetas mostrar_recetas) {
-        AdminRecetas recetas = new AdminRecetas();
+    public Admin_control(Admin admin, Stage stage, Ventana_Recetas mostrar_recetas, AdminRecetas recetas, AdminClasificaciones clasificaciones) {
         Ventana_Editar editar = new Ventana_Editar();
         Editar_Control editar_control = new Editar_Control(editar, recetas, admin, mostrar_recetas);
         Recetas_Control recetas_control = new Recetas_Control(editar,
@@ -26,11 +26,15 @@ public class Admin_control {
         Agregar_Control agregar_control = new Agregar_Control(agregar, recetas,
                 admin, mostrar_recetas, recetas_control);
         Ventana_Clasificacion clasificacion = new Ventana_Clasificacion();
-        Clasificacion_Control clasificacion_control = new Clasificacion_Control(clasificacion, admin, agregar,editar);
+        Clasificacion_Control clasificacion_control = new Clasificacion_Control(
+                clasificacion, admin, agregar, editar, clasificaciones);
+
+        admin.Btn_ver_us().setOnAction(e -> User_Control.Abrir(recetas, clasificaciones));
 
         var btn_home = admin.Btn_home();
         var btn_agregar = admin.Btn_agregar();
         var btn_clas = admin.Btn_clas();
+        var btn_view_user = admin.Btn_ver_us();
 
         btn_home.setOnAction(e -> {
             var vbox = admin.Ventanas(mostrar_recetas);

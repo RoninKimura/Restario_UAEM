@@ -15,16 +15,19 @@ import javafx.scene.paint.Color;
  */
 public class Clasificacion_Control {
 
-    AdminClasificaciones clasificaciones = new AdminClasificaciones();
+    private AdminClasificaciones clasificaciones;
 
-    private ComboBox choose_clasificacion, choose_clasificaciones, txt_Clasificacion,txt_clasificacion;
+    private ComboBox choose_clasificacion, choose_clasificaciones,
+            txt_Clasificacion, txt_clasificacion, clasificacion_user;
     private TextField txt_nombre;
     private TextArea txt_descripcion;
     private Color color;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public Clasificacion_Control(Ventana_Clasificacion ventana_clasificacion,
-            Admin admin, Ventana_Agregar agregar, Ventana_Editar editar) {
+            Admin admin, Ventana_Agregar agregar, Ventana_Editar editar,
+            AdminClasificaciones clasificaciones) {
+        this.clasificaciones = clasificaciones;
         choose_clasificacion = ventana_clasificacion.Combo_Box();
         choose_clasificaciones = admin.ComboBox_Admin();
         txt_Clasificacion = agregar.Clasificacion();
@@ -32,7 +35,14 @@ public class Clasificacion_Control {
         txt_nombre = ventana_clasificacion.Txt_Nombre();
         txt_descripcion = ventana_clasificacion.Txt_Descripcion();
         color = ventana_clasificacion.Color();
-        
+
+        for (Clasificacion c : clasificaciones.Obtener_Clasificaciones()) {
+            choose_clasificacion.getItems().add(c);
+            choose_clasificaciones.getItems().add(c);
+            txt_Clasificacion.getItems().add(c);
+            txt_clasificacion.getItems().add(c);
+        }
+
         var btn_agregar = ventana_clasificacion.Btn_Agregar();
         var btn_editar = ventana_clasificacion.Btn_Editar();
         var btn_eliminar = ventana_clasificacion.Btn_Eliminar();

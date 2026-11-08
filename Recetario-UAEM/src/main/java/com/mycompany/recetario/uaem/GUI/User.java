@@ -49,11 +49,11 @@ public class User {
         return ventanas;
     }
 
-    public Scene scene_Admin() {
+    public Scene scene_user() {
         return scene;
     }
 
-    public ComboBox ComboBox_Admin() {
+    public ComboBox ComboBox_user() {
         return clasificacion;
     }
 }

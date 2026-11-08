@@ -3,9 +3,15 @@ package com.mycompany.recetario.uaem.GUI_control;
 import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Login;
 import com.mycompany.recetario.uaem.GUI.Admin;
+import com.mycompany.recetario.uaem.GUI.User;
 import com.mycompany.recetario.uaem.GUI_control.Admin_control;
-
+import com.mycompany.recetario.uaem.GUI_control.User_Control;
+import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
+import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;
+import com.mycompany.recetario.uaem.Modelo.Receta;
+import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 
 /**
@@ -14,12 +20,23 @@ import javafx.stage.*;
  */
 public class Login_control {
 
+    AdminRecetas recetas = new AdminRecetas();
+    AdminClasificaciones clasificaciones = new AdminClasificaciones();
 //    String usuario = "Dul";
 //    String password = "sri257";
     String usuario = "";
     String password = "";
 
     public Login_control(Login login, Stage stage) {
+
+        clasificaciones.Obtener_Clasificaciones().add(new Clasificacion("Platillo", "Comidas fuertes", Color.ORANGE));
+        clasificaciones.Obtener_Clasificaciones().add(new Clasificacion("Postre", "Dulces", Color.PINK));
+
+        recetas.Agregar(new Receta(recetas.ID(), "Pozole", "Caldo tradicional", "Platillo", "Maiz, carne, chile", "Hervir todo por 2 horas"));
+
+        recetas.Agregar(
+                new Receta(recetas.ID(), "Flan", "Postre cremoso", "Postre",
+                        "Leche, huevo, azucar", "Hornear a bano maria"));
 
         var txt_usuario = login.Txt_usuario();
         var psw_password = login.Psw_password();
@@ -41,10 +58,10 @@ public class Login_control {
         });
 
         btn_singin.setOnAction(e -> {
-            Ventana_Recetas mostrar_recetas= new Ventana_Recetas();
+            Ventana_Recetas mostrar_recetas = new Ventana_Recetas();
             Admin admin = new Admin(mostrar_recetas);
             Stage admin_stage = new Stage();
-            Admin_control admin_control = new Admin_control(admin,admin_stage,mostrar_recetas);
+            Admin_control admin_control = new Admin_control(admin, admin_stage, mostrar_recetas, recetas, clasificaciones);
             var alert = new Alert(Alert.AlertType.CONFIRMATION);
 
             if (usuario.equals(txt_usuario.getText()) && password.equals(psw_password.getText())) {
@@ -61,6 +78,11 @@ public class Login_control {
             }
             txt_usuario.setText("");
             psw_password.setText("");
+        });
+
+        btn_enter.setOnAction(e -> {
+            User_Control.Abrir(recetas, clasificaciones);
+            stage.close();
         });
     }
 

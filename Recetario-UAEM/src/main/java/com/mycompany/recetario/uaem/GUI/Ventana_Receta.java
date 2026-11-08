@@ -1,41 +1,58 @@
 package com.mycompany.recetario.uaem.GUI;
 
+import com.mycompany.recetario.uaem.Modelo.Receta;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-/**
- *
- * @author angel
- */
 public class Ventana_Receta {
-    
-    private String Titulo;
-    private String Descripcion;
-    private String Clasificacion;
-    private String Ingredientes;
-    private String Procedimiento;
-    
+
     private VBox vbox;
-    private Label lbl_imagen,lbl_titulo,lbl_descripcion,lbl_clasificacion;
-    private Label lbl_ingredientes,lbl_procedimiento;
-    private Button btn_volver,btn_download;
-    
-    public Ventana_Receta(){
-    lbl_imagen= new Label("Imagen");
-    lbl_titulo= new Label(Titulo);
-    lbl_descripcion= new Label(Descripcion);
-    lbl_clasificacion= new Label(Clasificacion);
-    lbl_ingredientes= new Label(Ingredientes);
-    lbl_procedimiento= new Label(Procedimiento);
-    
-    vbox.getChildren().add(lbl_imagen);
-    vbox.getChildren().add(lbl_titulo);
-    vbox.getChildren().add(lbl_descripcion);
-    vbox.getChildren().add(lbl_clasificacion);
-    vbox.getChildren().add(lbl_ingredientes);
-    vbox.getChildren().add(lbl_procedimiento);
-}
-    public VBox Receta_Ventana(){
+    private Label lbl_imagen, lbl_titulo, lbl_descripcion, lbl_clasificacion;
+    private Label lbl_ingredientes, lbl_procedimiento;
+    private Button btn_volver, btn_download;
+
+    public Ventana_Receta() {
+        vbox = new VBox();
+
+        lbl_imagen = new Label("Imagen");
+        lbl_titulo = new Label();
+        lbl_descripcion = new Label();
+        lbl_clasificacion = new Label();
+        lbl_ingredientes = new Label();
+        lbl_procedimiento = new Label();
+
+        lbl_descripcion.setWrapText(true);
+        lbl_ingredientes.setWrapText(true);
+        lbl_procedimiento.setWrapText(true);
+        lbl_descripcion.setMaxWidth(300);
+        lbl_ingredientes.setMaxWidth(300);
+        lbl_procedimiento.setMaxWidth(300);
+
+        btn_volver = new Button("Volver");
+        btn_download = new Button("Descargar Receta");
+
+        vbox.getChildren().addAll(btn_volver, lbl_imagen, lbl_titulo, lbl_descripcion,
+                lbl_clasificacion, lbl_ingredientes, lbl_procedimiento, btn_download);
+        vbox.setSpacing(10);
+    }
+
+    public void Cargar(Receta r) {
+        lbl_titulo.setText(r.getTitulo());
+        lbl_descripcion.setText(r.getDescripcion());
+        lbl_clasificacion.setText(r.getCalsificacion());
+        lbl_ingredientes.setText("Ingredientes:\n" + r.getIngredientes());
+        lbl_procedimiento.setText("Procedimiento:\n" + r.getProcedimiento());
+    }
+
+    public VBox Receta_Ventana() {
         return vbox;
+    }
+
+    public Button btn_volver() {
+        return btn_volver;
+    }
+
+    public Button btn_download() {
+        return btn_download;
     }
 }
