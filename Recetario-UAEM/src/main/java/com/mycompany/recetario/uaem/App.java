@@ -1,7 +1,7 @@
 package com.mycompany.recetario.uaem;
 
 import com.mycompany.recetario.uaem.GUI.Login;
-import com.mycompany.recetario.uaem.GUI_control.Login_control;
+import com.mycompany.recetario.uaem.Control.Login_control;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

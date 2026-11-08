@@ -1,9 +1,9 @@
-package com.mycompany.recetario.uaem.GUI_control;
+package com.mycompany.recetario.uaem.Control;
 
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
-import com.mycompany.recetario.uaem.GUI_control.Recetas_Control;
+import com.mycompany.recetario.uaem.Control.Recetas_Control;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;

@@ -1,4 +1,4 @@
-package com.mycompany.recetario.uaem.GUI_control;
+package com.mycompany.recetario.uaem.Control;
 
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
 import com.mycompany.recetario.uaem.Servicios.AdminClasificaciones;

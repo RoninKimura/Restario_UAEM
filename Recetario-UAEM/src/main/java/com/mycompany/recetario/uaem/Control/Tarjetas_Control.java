@@ -1,4 +1,4 @@
-package com.mycompany.recetario.uaem.GUI_control;
+package com.mycompany.recetario.uaem.Control;
 
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
@@ -6,7 +6,7 @@ import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.GUI.Ventana_Editar;
 import com.mycompany.recetario.uaem.GUI.Tarjetas_Recetas;
-import com.mycompany.recetario.uaem.GUI_control.Editar_Control;
+import com.mycompany.recetario.uaem.Control.Editar_Control;
 
 import javafx.scene.control.Button;
 
