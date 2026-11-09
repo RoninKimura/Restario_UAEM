@@ -11,11 +11,11 @@ import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
 import com.mycompany.recetario.uaem.Archivos.Archivo_PDF;
 
 import java.io.File;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.stage.*;
 
 public class User_Control {
 
@@ -23,16 +23,22 @@ public class User_Control {
     private final User user;
     private final Ventana_Recetas mostrar_recetas;
     private final AdminRecetas recetas;
-    private final Ventana_Receta ver_receta;
+    private final Ventana_Receta ventana_receta;
     private final ComboBox combo;
+
+    private Button btn_volver, btn_download;
 
     public User_Control(User user, Ventana_Recetas mostrar_recetas,
             AdminRecetas recetas, AdminClasificaciones clasificaciones) {
+
         this.user = user;
         this.mostrar_recetas = mostrar_recetas;
         this.recetas = recetas;
-        this.ver_receta = new Ventana_Receta();
+        this.ventana_receta = new Ventana_Receta();
         this.combo = user.ComboBox_user();
+
+        btn_volver = ventana_receta.btn_volver();
+        btn_download = ventana_receta.btn_download();
 
         Clasificacion todas = new Clasificacion("Todas", "", Color.WHITE);
         combo.getItems().add(todas);
@@ -44,27 +50,12 @@ public class User_Control {
             Actualizar_Tarjetas();
         });
 
-        ver_receta.btn_volver().setOnAction(e -> {
+        btn_volver.setOnAction(e -> {
             user.Ventanas(mostrar_recetas);
         });
 
-        ver_receta.btn_download().setOnAction(e -> {
-            if (receta == null) {
-                return;
-            }
-            FileChooser fc = new FileChooser();
-            fc.setInitialFileName(receta.getTitulo() + ".pdf");
-            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
-            File destino = fc.showSaveDialog(ver_receta.btn_download().getScene().getWindow());
-            if (destino == null) {
-                return;
-            }
-            try {
-                Archivo_PDF.GenerarReceta(receta, destino);
-                new Alert(Alert.AlertType.INFORMATION, "Receta descargada correctamente").showAndWait();
-            } catch (Exception ex) {
-                new Alert(Alert.AlertType.ERROR, "No se pudo generar el PDF").showAndWait();
-            }
+        btn_download.setOnAction(e -> {
+            Descargar(receta, btn_download.getScene().getWindow());
         });
         Actualizar_Tarjetas();
     }
@@ -91,10 +82,14 @@ public class User_Control {
 
             tarjeta.btn_ver().setOnAction(e -> {
                 receta = r;
-                ver_receta.Cargar(r);
+                ventana_receta.Cargar(r);
                 var vbox = user.Ventanas(mostrar_recetas);
                 vbox.getChildren().clear();
-                vbox.getChildren().add(ver_receta.Receta_Ventana());
+                vbox.getChildren().add(ventana_receta.Receta_Ventana());
+            });
+
+            tarjeta.btn_download().setOnAction(e -> {
+                Descargar(receta, tarjeta.btn_download().getScene().getWindow());
             });
         }
     }
@@ -109,5 +104,28 @@ public class User_Control {
         user_stage.setResizable(false);
         user_stage.setTitle("Recetario UAEM");
         user_stage.show();
+    }
+
+    private void Descargar(Receta receta, Window ventana) {
+        if (receta == null) {
+            return;
+        }
+        FileChooser fc = new FileChooser();
+        fc.setInitialFileName(receta.getTitulo().replaceAll("[\\\\/:*?\"<>|]", "_") + ".pdf");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        File destino = fc.showSaveDialog(ventana);
+        if (destino == null) {
+            return;
+        }
+        if (!destino.getName().toLowerCase().endsWith(".pdf")) {
+            destino = new File(destino.getAbsolutePath() + ".pdf");
+        }
+        try {
+            Archivo_PDF.GenerarReceta(receta, destino);
+            new Alert(Alert.AlertType.INFORMATION, "Receta descargada correctamente").showAndWait();
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "No se pudo generar el PDF").showAndWait();
+        }
     }
 }

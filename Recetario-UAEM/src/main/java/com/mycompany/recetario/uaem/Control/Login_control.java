@@ -29,15 +29,6 @@ public class Login_control {
 
     public Login_control(Login login, Stage stage) {
 
-        clasificaciones.Obtener_Clasificaciones().add(new Clasificacion("Platillo", "Comidas fuertes", Color.ORANGE));
-        clasificaciones.Obtener_Clasificaciones().add(new Clasificacion("Postre", "Dulces", Color.PINK));
-
-        recetas.Agregar(new Receta(recetas.ID(), "Pozole", "Caldo tradicional", "Platillo", "Maiz, carne, chile", "Hervir todo por 2 horas"));
-
-        recetas.Agregar(
-                new Receta(recetas.ID(), "Flan", "Postre cremoso", "Postre",
-                        "Leche, huevo, azucar", "Hornear a bano maria"));
-
         var txt_usuario = login.Txt_usuario();
         var psw_password = login.Psw_password();
 

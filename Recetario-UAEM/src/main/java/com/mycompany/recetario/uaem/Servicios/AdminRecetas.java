@@ -2,6 +2,8 @@ package com.mycompany.recetario.uaem.Servicios;
 
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
+import com.mycompany.recetario.uaem.Archivos.Archivo_Excel;
+
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 
@@ -12,8 +14,17 @@ import javafx.scene.control.Alert;
 public class AdminRecetas {
 
     private int Id = 0;
-    private ArrayList<Receta> recetas = new ArrayList();
+    private ArrayList<Receta> recetas;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    
+    public AdminRecetas() {
+        recetas = Archivo_Excel.CargarRecetas();
+        for (Receta r : recetas) {
+            if (r.getid() >= Id) {
+                Id = r.getid() + 1;
+            }
+        }
+    }
 
     public int ID() {
         return Id++;
@@ -21,6 +32,7 @@ public class AdminRecetas {
 
     public void Agregar(Receta receta) {
         recetas.add(receta);
+        Archivo_Excel.GuardarRecetas(recetas);
         System.out.print(recetas.size());
     }
 
@@ -35,6 +47,7 @@ public class AdminRecetas {
         r.setClasificacion(Clasificacion);
         r.setIngredientes(Ingredientes);
         r.setProcedimiento(Procedimiento);
+        Archivo_Excel.GuardarRecetas(recetas);
         alert.setContentText("Se modifico " + r.getTitulo() + " Correctamente");
         alert.showAndWait();
     }
@@ -46,6 +59,7 @@ public class AdminRecetas {
             return;
         }
         recetas.remove(r);
+        Archivo_Excel.GuardarRecetas(recetas);
         System.out.print(recetas.size());
         alert.setContentText("Se elimino Correctamente");
         alert.showAndWait();

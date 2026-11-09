@@ -1,6 +1,8 @@
 package com.mycompany.recetario.uaem.Servicios;
 
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
+import com.mycompany.recetario.uaem.Archivos.Archivo_Excel;
+
 import java.util.ArrayList;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -10,34 +12,42 @@ import javafx.scene.paint.Color;
  * @author You
  */
 public class AdminClasificaciones {
-    
-    private ArrayList<Clasificacion> clasificaciones = new ArrayList();
-    
+
+    private ArrayList<Clasificacion> clasificaciones;
+
+
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+    public AdminClasificaciones() {
+        clasificaciones = Archivo_Excel.CargarClasificaciones();
+    }
     
     public void Agregar(Clasificacion clasificacion) {
         clasificaciones.add(clasificacion);
+        Archivo_Excel.GuardarClasificaciones(clasificaciones);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText(clasificacion.getNombre() + " Agregada Correctamente");
         alert.showAndWait();
     }
-    
+
     public void Editar(int id, String nombre, String descripcion, Color color) {
         clasificaciones.get(id).setNombre(nombre);
         clasificaciones.get(id).setDescripcion(descripcion);
         clasificaciones.get(id).setColor(color);
+        Archivo_Excel.GuardarClasificaciones(clasificaciones);
         alert.setContentText("Se modifico " + clasificaciones.get(id).getNombre() + " Correctamente");
         alert.showAndWait();
     }
-    
+
     public void Eliminar(int id) {
         alert.setContentText(clasificaciones.get(id).getNombre()
                 + " Fue Eliminada");
         alert.showAndWait();
         clasificaciones.remove(id);
+        Archivo_Excel.GuardarClasificaciones(clasificaciones);
         System.out.print(clasificaciones.size());
     }
-    
+
     public boolean ExisteNombre(String nombre) {
         for (int d = 0; d < clasificaciones.size(); d++) {
             if (nombre.equals(clasificaciones.get(d).getNombre())) {
@@ -56,7 +66,7 @@ public class AdminClasificaciones {
         return false;
     }
 
-    public  ArrayList<Clasificacion> Obtener_Clasificaciones() {
+    public ArrayList<Clasificacion> Obtener_Clasificaciones() {
         return clasificaciones;
     }
 }

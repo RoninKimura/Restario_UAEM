@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 public class Admin {
     private Scene scene;
     private VBox ventanas;
-    private Button btn_home, btn_agregar, btn_clas, btn_ver_us;
+    private Button btn_home, btn_agregar, btn_clas, btn_ver_us, btn_excel;
     private ComboBox clasificacion;
 
     public Admin(Ventana_Recetas mostrar_recetas) {
@@ -30,6 +30,8 @@ public class Admin {
         btn_clas.setMinWidth(150);
         btn_ver_us = new Button("Vista de Usuario");
         btn_ver_us.setMinWidth(150);
+        btn_excel= new Button("Exportar Excel");
+        btn_excel.setMinWidth(150);
 
         clasificacion = new ComboBox();
         clasificacion.setPromptText("Selecciona Opcion");
@@ -42,6 +44,7 @@ public class Admin {
         menu.getChildren().add(btn_clas);
         menu.getChildren().add(btn_agregar);
         menu.getChildren().add(btn_ver_us);
+        menu.getChildren().add(btn_excel);
         menu.getChildren().add(lbl_clas);
         menu.getChildren().add(clasificacion);
 
@@ -78,6 +81,10 @@ public class Admin {
 
     public Button Btn_ver_us() {
         return btn_ver_us;
+    }
+    
+    public Button Btn_Excel(){
+        return btn_excel;
     }
 
     public ComboBox ComboBox_Admin() {

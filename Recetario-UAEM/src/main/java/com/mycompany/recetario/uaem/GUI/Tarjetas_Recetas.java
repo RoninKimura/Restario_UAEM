@@ -62,6 +62,9 @@ public class Tarjetas_Recetas {
     public Button btn_ver(){
         return btn_ver;
     }
+    public Button btn_download(){
+        return btn_download;
+    }
     public HBox mod_users(){
         hbox.getChildren().clear();
         hbox.getChildren().add(btn_ver);
