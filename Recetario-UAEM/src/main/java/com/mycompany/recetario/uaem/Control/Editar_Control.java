@@ -64,9 +64,9 @@ public class Editar_Control {
                     return;
                 }
             }
-            recetas.Editar(id, txt_Titulo.getText(), txt_Descripcion.getText(),
+            recetas.Editar(id, nombreImagen, txt_Titulo.getText(), txt_Descripcion.getText(),
                     clasificacion.getNombre(), txt_Ingredientes.getText(),
-                    txt_Procedimiento.getText(), nombreImagen);
+                    txt_Procedimiento.getText());
             recetas_control.Actualizar_Tarjetas();
             Limpiar();
             admin.Ventanas(mostrar_recetas);
