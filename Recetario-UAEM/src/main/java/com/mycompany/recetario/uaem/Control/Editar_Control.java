@@ -1,17 +1,25 @@
 package com.mycompany.recetario.uaem.Control;
 
+import com.mycompany.recetario.uaem.Archivos.Imagen;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Editar;
 import com.mycompany.recetario.uaem.GUI.Ventana_Recetas;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Servicios.AdminRecetas;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
+import javafx.scene.control.*;
+import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
 public class Editar_Control {
+
     private int id;
+    private String imagenActual = "";
+    private File imagenElegida;
+    private ImageView vista_imagen;
     private TextField txt_Titulo;
     private ComboBox txt_Clasificacion;
     private TextArea txt_Descripcion, txt_Ingredientes, txt_Procedimiento;
@@ -25,17 +33,40 @@ public class Editar_Control {
         txt_Ingredientes = editar.Ingredientes();
         txt_Procedimiento = editar.Procedimiento();
 
+        vista_imagen = editar.Vista_Imagen();
+
+        var btn_Imagen = editar.btnImagen();
         var btn_Editar = editar.btnEditar();
         var btn_Cancelar = editar.btnCancelar();
+
+        btn_Imagen.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+                    "Imagenes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+            File f = fc.showOpenDialog(editar.btnImagen().getScene().getWindow());
+            if (f != null) {
+                imagenElegida = f;
+                vista_imagen.setImage(new Image(f.toURI().toString(), 150, 90, true, true));
+            }
+        });
 
         btn_Editar.setOnAction(e -> {
             Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
             if (clasificacion == null) {
                 return;
             }
+            String nombreImagen = imagenActual;
+            if (imagenElegida != null) {
+                try {
+                    nombreImagen = Imagen.Guardar(imagenElegida);
+                } catch (Exception ex) {
+                    new Alert(Alert.AlertType.ERROR, "No se pudo guardar la imagen").showAndWait();
+                    return;
+                }
+            }
             recetas.Editar(id, txt_Titulo.getText(), txt_Descripcion.getText(),
                     clasificacion.getNombre(), txt_Ingredientes.getText(),
-                    txt_Procedimiento.getText());
+                    txt_Procedimiento.getText(), nombreImagen);
             recetas_control.Actualizar_Tarjetas();
             Limpiar();
             admin.Ventanas(mostrar_recetas);
@@ -57,6 +88,9 @@ public class Editar_Control {
         txt_Clasificacion.setValue(null);
         txt_Ingredientes.setText("");
         txt_Procedimiento.setText("");
+        imagenElegida = null;
+        imagenActual = "";
+        vista_imagen.setImage(null);
     }
 
     public void ObtenerDatos(Receta r) {
@@ -73,5 +107,8 @@ public class Editar_Control {
                 txt_Clasificacion.setValue(clasificacion);
             }
         }
+        imagenActual = r.getImagen() == null ? "" : r.getImagen();
+        imagenElegida = null;
+        vista_imagen.setImage(Imagen.Cargar(imagenActual, 150, 90));
     }
 }

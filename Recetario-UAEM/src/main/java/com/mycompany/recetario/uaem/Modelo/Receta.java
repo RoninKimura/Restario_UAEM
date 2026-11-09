@@ -7,15 +7,17 @@ import com.mycompany.recetario.uaem.Modelo.Clasificacion;
  */
 public class Receta {
     private int id;
+    private String Imagen;
     private String Titulo;
     private String Descripcion;
     private String Clasificacion;
     private String Ingredientes;
     private String Procedimiento;
     
-    public Receta(int id,String Titulo,String Descripcion,String Clasificacion,
+    public Receta(int id,String Imagen,String Titulo,String Descripcion,String Clasificacion,
             String Ingredientes,String Procedimiento){
         this.id=id;
+        this.Imagen=Imagen;
         this.Titulo= Titulo;
         this.Descripcion= Descripcion;
         this.Clasificacion= Clasificacion;
@@ -24,6 +26,9 @@ public class Receta {
     }
     public int getid(){
         return id;
+    }
+    public String getImagen(){
+        return Imagen;
     }
     public String getTitulo(){
         return Titulo;
@@ -41,6 +46,9 @@ public class Receta {
         return Procedimiento;
     }
     
+    public void setImagen(String Imagen){
+        this.Imagen=Imagen;
+    }
     public void setTitulo(String Titulo){
         this.Titulo=Titulo;
     }

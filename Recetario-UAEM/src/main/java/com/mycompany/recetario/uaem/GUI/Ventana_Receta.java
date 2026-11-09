@@ -1,20 +1,27 @@
 package com.mycompany.recetario.uaem.GUI;
 
 import com.mycompany.recetario.uaem.Modelo.Receta;
+import com.mycompany.recetario.uaem.Archivos.Imagen;
+
+import javafx.scene.image.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 public class Ventana_Receta {
 
     private VBox vbox;
-    private Label lbl_imagen, lbl_titulo, lbl_descripcion, lbl_clasificacion;
+    private ImageView img_receta;
+    private Label lbl_titulo, lbl_descripcion, lbl_clasificacion;
     private Label lbl_ingredientes, lbl_procedimiento;
     private Button btn_volver, btn_download;
 
     public Ventana_Receta() {
         vbox = new VBox();
 
-        lbl_imagen = new Label("Imagen");
+        img_receta = new ImageView();
+        img_receta.setFitWidth(250);
+        img_receta.setFitHeight(120);
+        img_receta.setPreserveRatio(true);
         lbl_titulo = new Label();
         lbl_descripcion = new Label();
         lbl_clasificacion = new Label();
@@ -31,13 +38,20 @@ public class Ventana_Receta {
         btn_volver = new Button("Volver");
         btn_download = new Button("Descargar Receta");
 
-        vbox.getChildren().addAll(btn_volver, lbl_imagen, lbl_titulo, lbl_descripcion,
-                lbl_clasificacion, lbl_ingredientes, lbl_procedimiento, btn_download);
+        vbox.getChildren().add(btn_volver);
+        vbox.getChildren().add(img_receta);
+        vbox.getChildren().add(lbl_titulo);
+        vbox.getChildren().add(lbl_descripcion);
+        vbox.getChildren().add(lbl_clasificacion);
+        vbox.getChildren().add(lbl_ingredientes);
+        vbox.getChildren().add(lbl_procedimiento);
+        vbox.getChildren().add(btn_download);
         vbox.setSpacing(10);
     }
 
     public void Cargar(Receta r) {
         lbl_titulo.setText(r.getTitulo());
+        img_receta.setImage(Imagen.Cargar(r.getImagen(), 250, 120));
         lbl_descripcion.setText(r.getDescripcion());
         lbl_clasificacion.setText(r.getCalsificacion());
         lbl_ingredientes.setText("Ingredientes:\n" + r.getIngredientes());

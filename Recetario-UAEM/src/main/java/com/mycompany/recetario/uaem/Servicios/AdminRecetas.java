@@ -36,12 +36,13 @@ public class AdminRecetas {
         System.out.print(recetas.size());
     }
 
-    public void Editar(int id, String Titulo, String Descripcion, String Clasificacion,
+    public void Editar(int id,String Imagen, String Titulo, String Descripcion, String Clasificacion,
             String Ingredientes, String Procedimiento) {
         Receta r = Buscar(id);
         if (r == null) {
             return;
         }
+        r.setImagen(Imagen);
         r.setTitulo(Titulo);
         r.setDescripcion(Descripcion);
         r.setClasificacion(Clasificacion);

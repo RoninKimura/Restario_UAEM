@@ -38,6 +38,7 @@ public class Recetas_Control {
         for (Receta r : recetas.Obtener_Recetas()) {
             Tarjetas_Recetas tarjeta = new Tarjetas_Recetas();
             tarjeta.id=r.getid();
+            tarjeta.NombreImagen = r.getImagen();
             tarjeta.Titulo = r.getTitulo();
             tarjeta.Descripcion = r.getDescripcion();
             tarjeta.Clasificacion = r.getCalsificacion();

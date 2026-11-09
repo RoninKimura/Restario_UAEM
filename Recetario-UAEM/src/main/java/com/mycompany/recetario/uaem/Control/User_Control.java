@@ -73,6 +73,7 @@ public class User_Control {
 
             Tarjetas_Recetas tarjeta = new Tarjetas_Recetas();
             tarjeta.id = r.getid();
+            tarjeta.NombreImagen = r.getImagen();
             tarjeta.Titulo = r.getTitulo();
             tarjeta.Descripcion = r.getDescripcion();
             tarjeta.Clasificacion = r.getCalsificacion();
@@ -89,7 +90,7 @@ public class User_Control {
             });
 
             tarjeta.btn_download().setOnAction(e -> {
-                Descargar(receta, tarjeta.btn_download().getScene().getWindow());
+                Descargar(r, tarjeta.btn_download().getScene().getWindow());
             });
         }
     }

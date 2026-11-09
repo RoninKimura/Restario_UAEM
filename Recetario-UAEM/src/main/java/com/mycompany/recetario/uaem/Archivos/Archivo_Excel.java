@@ -61,14 +61,15 @@ public class Archivo_Excel {
                         fmt.formatCellValue(f.getCell(2)),
                         fmt.formatCellValue(f.getCell(3)),
                         fmt.formatCellValue(f.getCell(4)),
-                        fmt.formatCellValue(f.getCell(5))));
+                        fmt.formatCellValue(f.getCell(5)),
+                        fmt.formatCellValue(f.getCell(6))));
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println("Error al leer recetas.xlsx: " + e.getMessage());
         }
         return lista;
     }
-    
+
     public static void GuardarClasificaciones(ArrayList<Clasificacion> lista) {
         try (Workbook libro = new XSSFWorkbook()) {
             Files.createDirectories(F_CLAS.toPath().getParent());
@@ -106,15 +107,14 @@ public class Archivo_Excel {
             ErrorGuardar("las clasificaciones");
         }
     }
-    
+
     public static ArrayList<Clasificacion> CargarClasificaciones() {
         ArrayList<Clasificacion> lista = new ArrayList<>();
         if (!F_CLAS.exists()) {
             return lista;
         }
         DataFormatter fmt = new DataFormatter();
-        try (FileInputStream in = new FileInputStream(F_CLAS);
-                Workbook libro = new XSSFWorkbook(in)) {
+        try (FileInputStream in = new FileInputStream(F_CLAS); Workbook libro = new XSSFWorkbook(in)) {
             Sheet hoja = libro.getSheetAt(0);
             for (int i = 1; i <= hoja.getLastRowNum(); i++) {
                 Row f = hoja.getRow(i);
@@ -133,11 +133,10 @@ public class Archivo_Excel {
         }
         return lista;
     }
-    
+
     public static void ExportarRecetas(ArrayList<Receta> recetas, File destino)
             throws IOException {
-        try (Workbook libro = new XSSFWorkbook();
-                FileOutputStream salida = new FileOutputStream(destino)) {
+        try (Workbook libro = new XSSFWorkbook(); FileOutputStream salida = new FileOutputStream(destino)) {
 
             Sheet hoja = libro.createSheet("Recetas");
 
@@ -146,7 +145,7 @@ public class Archivo_Excel {
             CellStyle estilo = libro.createCellStyle();
             estilo.setFont(negrita);
 
-            String[] encabezados = {"ID", "Titulo", "Descripcion", "Clasificacion",
+            String[] encabezados = {"ID", "Imagen", "Titulo", "Descripcion", "Clasificacion",
                 "Ingredientes", "Procedimiento"};
             Row encabezado = hoja.createRow(0);
             for (int i = 0; i < encabezados.length; i++) {
@@ -159,11 +158,12 @@ public class Archivo_Excel {
             for (Receta r : recetas) {
                 Row f = hoja.createRow(fila++);
                 f.createCell(0).setCellValue(r.getid());
-                f.createCell(1).setCellValue(r.getTitulo());
-                f.createCell(2).setCellValue(r.getDescripcion());
-                f.createCell(3).setCellValue(r.getCalsificacion());
-                f.createCell(4).setCellValue(r.getIngredientes());
-                f.createCell(5).setCellValue(r.getProcedimiento());
+                f.createCell(1).setCellValue(r.getImagen() == null ? "" : r.getImagen());
+                f.createCell(2).setCellValue(r.getTitulo());
+                f.createCell(3).setCellValue(r.getDescripcion());
+                f.createCell(4).setCellValue(r.getCalsificacion());
+                f.createCell(5).setCellValue(r.getIngredientes());
+                f.createCell(6).setCellValue(r.getProcedimiento());
             }
 
             for (int i = 0; i < 4; i++) {
@@ -175,7 +175,7 @@ public class Archivo_Excel {
             libro.write(salida);
         }
     }
-    
+
     private static Color ColorDeTexto(String texto) {
         try {
             return Color.web(texto);

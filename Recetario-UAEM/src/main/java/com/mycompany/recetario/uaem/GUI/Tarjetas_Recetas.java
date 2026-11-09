@@ -1,32 +1,42 @@
 package com.mycompany.recetario.uaem.GUI;
 
+import com.mycompany.recetario.uaem.Archivos.Imagen;
+import javafx.scene.image.*;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 /**
  *
  * @author You
  */
 public class Tarjetas_Recetas {
+
     public int id;
-    public String Titulo,Descripcion,Clasificacion;
+    public String NombreImagen, Titulo, Descripcion, Clasificacion;
     private HBox hbox;
-    private Button btn_editar, btn_eliminar,btn_ver,btn_download;
+    private Button btn_editar, btn_eliminar, btn_ver, btn_download;
 
     public VBox Tarjetas_Recetas() {
         var vbox_tarjeta = new VBox();
         var vbox = new VBox();
         hbox = new HBox();
 
-        var lbl_image = new Label();
         var lbl_titulo = new Label(Titulo);
         var lbl_descripcion = new Label(Descripcion);
         var lbl_clasificacion = new Label(Clasificacion);
-
-        vbox.getChildren().add(lbl_image);
+        
+        Image img = Imagen.Cargar(NombreImagen, 120, 90);
+        
+        if (img != null) {
+            var vista = new ImageView(img);
+            vista.setFitWidth(120);
+            vista.setFitHeight(90);
+            vista.setPreserveRatio(true);
+            vbox.getChildren().add(vista);
+        } else {
+            vbox.getChildren().add(new Label("Sin imagen"));
+        }
         vbox.getChildren().add(lbl_titulo);
         vbox.getChildren().add(lbl_descripcion);
         vbox.getChildren().add(lbl_clasificacion);
@@ -36,9 +46,9 @@ public class Tarjetas_Recetas {
 
         btn_editar = new Button("Editar");
         btn_eliminar = new Button("Eliminar");
-        
-        btn_ver= new Button("Ver Receta");
-        btn_download= new Button("Descargar Receta");
+
+        btn_ver = new Button("Ver Receta");
+        btn_download = new Button("Descargar Receta");
 
         hbox.getChildren().add(btn_editar);
         hbox.getChildren().add(btn_eliminar);
@@ -52,20 +62,24 @@ public class Tarjetas_Recetas {
 
         return vbox_tarjeta;
     }
-    
-    public Button btn_editar(){
+
+    public Button btn_editar() {
         return btn_editar;
     }
-    public Button btn_eliminar(){
+
+    public Button btn_eliminar() {
         return btn_eliminar;
     }
-    public Button btn_ver(){
+
+    public Button btn_ver() {
         return btn_ver;
     }
-    public Button btn_download(){
+
+    public Button btn_download() {
         return btn_download;
     }
-    public HBox mod_users(){
+
+    public HBox mod_users() {
         hbox.getChildren().clear();
         hbox.getChildren().add(btn_ver);
         hbox.getChildren().add(btn_download);

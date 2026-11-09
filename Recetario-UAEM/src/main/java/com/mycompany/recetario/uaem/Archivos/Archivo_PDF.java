@@ -1,22 +1,23 @@
 package com.mycompany.recetario.uaem.Archivos;
 
-import com.itextpdf.io.font.constants.StandardFonts;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 import com.mycompany.recetario.uaem.Modelo.Receta;
-import java.io.File;
-import java.io.IOException;
+
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.*;
+import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.*;
 
 /**
  *
  * @author angel
  */
 public class Archivo_PDF {
-     public static void GenerarReceta(Receta r, File destino) throws IOException {
+
+    public static void GenerarReceta(Receta r, File destino) throws IOException {
         PdfWriter writer = new PdfWriter(destino);
         PdfDocument pdf = new PdfDocument(writer);
         Document doc = new Document(pdf);
@@ -24,6 +25,11 @@ public class Archivo_PDF {
         PdfFont negrita = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 
         doc.add(new Paragraph(r.getTitulo()).setFont(negrita).setFontSize(22));
+        File archivoImagen = Imagen.Archivo(r.getImagen());
+        if (archivoImagen != null) {
+            doc.add(new Image(ImageDataFactory.create(archivoImagen.getAbsolutePath()))
+                    .scaleToFit(300, 200));
+        }
         doc.add(new Paragraph("Clasificacion: " + r.getCalsificacion()));
         doc.add(new Paragraph(r.getDescripcion()));
         doc.add(new Paragraph("Ingredientes").setFont(negrita).setFontSize(14));
