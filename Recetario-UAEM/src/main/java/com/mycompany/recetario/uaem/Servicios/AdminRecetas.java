@@ -1,5 +1,6 @@
 package com.mycompany.recetario.uaem.Servicios;
 
+import com.mycompany.recetario.uaem.Excepciones.Duplicado;
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
 import com.mycompany.recetario.uaem.Archivos.Archivo_Excel;
@@ -30,18 +31,19 @@ public class AdminRecetas {
         return Id++;
     }
 
-    public void Agregar(Receta receta) {
+    public void Agregar(Receta receta) throws Duplicado {
+        ValidarTitulo(receta.getTitulo(), -1);
         recetas.add(receta);
         Archivo_Excel.GuardarRecetas(recetas);
-        System.out.print(recetas.size());
     }
 
     public void Editar(int id, String Imagen, String Titulo, String Descripcion, String Clasificacion,
-            String Ingredientes, String Procedimiento) {
+            String Ingredientes, String Procedimiento) throws Duplicado {
         Receta r = Buscar(id);
         if (r == null) {
             return;
         }
+        ValidarTitulo(Titulo, id);
         r.setImagen(Imagen);
         r.setTitulo(Titulo);
         r.setDescripcion(Descripcion);
@@ -54,14 +56,12 @@ public class AdminRecetas {
     }
 
     public void Eliminar(int id) {
-        System.out.print(recetas.size());
         Receta r = Buscar(id);
         if (r == null) {
             return;
         }
         recetas.remove(r);
         Archivo_Excel.GuardarRecetas(recetas);
-        System.out.print(recetas.size());
         alert.setContentText("Se elimino Correctamente");
         alert.showAndWait();
     }
@@ -93,5 +93,20 @@ public class AdminRecetas {
             resultado.add(r);
         }
         return resultado;
+    }
+
+    public void ValidarTitulo(String titulo, int idIgnorar) throws Duplicado {
+        if (ExisteTitulo(titulo, idIgnorar)) {
+            throw new Duplicado("Ya existe una receta llamada \"" + titulo.trim() + "\".");
+        }
+    }
+
+    public boolean ExisteTitulo(String titulo, int idIgnorar) {
+        for (Receta r : recetas) {
+            if (r.getid() != idIgnorar && r.getTitulo().trim().equalsIgnoreCase(titulo.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

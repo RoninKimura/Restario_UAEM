@@ -1,5 +1,10 @@
 package com.mycompany.recetario.uaem.Control;
 
+import com.mycompany.recetario.uaem.Excepciones.ExcepcionesArchivo;
+import com.mycompany.recetario.uaem.Excepciones.Duplicado;
+import com.mycompany.recetario.uaem.Excepciones.Validacion;
+import com.mycompany.recetario.uaem.GUI.Alertas;
+import com.mycompany.recetario.uaem.Servicios.Validador;
 import com.mycompany.recetario.uaem.Archivos.Imagen;
 import com.mycompany.recetario.uaem.Modelo.Receta;
 import com.mycompany.recetario.uaem.Modelo.Clasificacion;
@@ -54,29 +59,25 @@ public class Agregar_Control {
         });
 
         btn_Agregar.setOnAction(e -> {
-            String Titulo = txt_Titulo.getText();
-            String Descripcion = txt_Descripcion.getText();
-            Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
-            if (clasificacion == null) {
-                return;
-            }
-            String Ingredientes = txt_Ingredientes.getText();
-            String Procedimiento = txt_Procedimiento.getText();
-            String nombreImagen = "";
-            if (imagen != null) {
-                try {
-                    nombreImagen = Imagen.Guardar(imagen);
-                } catch (Exception ex) {
-                    new Alert(Alert.AlertType.ERROR, "No se pudo guardar la imagen").showAndWait();
-                    return;
-                }
-            }
-            Receta receta = new Receta(recetas.ID(), nombreImagen, Titulo, Descripcion,
-                    clasificacion.getNombre(), Ingredientes, Procedimiento);
-            recetas.Agregar(receta);
-            recetas_control.Actualizar_Tarjetas();
+            try {
+                Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
+                Validador.ValidarReceta(txt_Titulo.getText(), txt_Descripcion.getText(),
+                        clasificacion, txt_Ingredientes.getText(), txt_Procedimiento.getText(), imagen);
+                recetas.ValidarTitulo(txt_Titulo.getText(), -1);
 
-            Limpiar();
+                String nombreImagen = (imagen == null) ? "" : Imagen.Guardar(imagen);
+                Receta receta = new Receta(recetas.ID(), nombreImagen, txt_Titulo.getText().trim(),
+                        txt_Descripcion.getText().trim(), clasificacion.getNombre(),
+                        txt_Ingredientes.getText().trim(), txt_Procedimiento.getText().trim());
+                recetas.Agregar(receta);
+                recetas_control.Actualizar_Tarjetas();
+                Alertas.info("Receta \"" + receta.getTitulo() + "\" agregada correctamente.");
+                Limpiar();
+            } catch (Validacion | Duplicado ex) {
+                Alertas.advertencia(ex.getMessage());
+            } catch (ExcepcionesArchivo ex) {
+                Alertas.error(ex.getMessage());
+            }
         });
 
         btn_Cancelar.setOnAction(e -> {

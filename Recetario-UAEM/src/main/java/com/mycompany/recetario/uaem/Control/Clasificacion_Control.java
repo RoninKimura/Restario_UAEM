@@ -1,5 +1,8 @@
 package com.mycompany.recetario.uaem.Control;
 
+import com.mycompany.recetario.uaem.Excepciones.Validacion;
+import com.mycompany.recetario.uaem.Servicios.Validador;
+import com.mycompany.recetario.uaem.GUI.Alertas;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Agregar;
 import com.mycompany.recetario.uaem.GUI.Ventana_Editar;
@@ -70,11 +73,11 @@ public class Clasificacion_Control {
 
         choose_clasificacion.setOnAction(e -> {
             Clasificacion seleccion = (Clasificacion) choose_clasificacion.getValue();
-            txt_nombre.setText(seleccion.getNombre());
-            txt_descripcion.setText(seleccion.getDescripcion());
             if (seleccion == null) {
                 return;
             }
+            txt_nombre.setText(seleccion.getNombre());
+            txt_descripcion.setText(seleccion.getDescripcion());
         });
 
         btn_editar.setOnAction(e -> {
@@ -94,23 +97,22 @@ public class Clasificacion_Control {
         });
 
         btn_eliminar.setOnAction(e -> {
-            String nombre = txt_nombre.getText();
-            String descripcion = txt_descripcion.getText();
-            if (NoVacios(nombre, descripcion)) {
-                if (!clasificaciones.ExisteNombre(nombre)) {
-                    alert.setAlertType(Alert.AlertType.ERROR);
-                    alert.setContentText(nombre + " No Existe");
-                    alert.showAndWait();
-                } else {
-                    int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
-                    Object borrada = choose_clasificacion.getItems().get(id);
-                    clasificaciones.Eliminar(id);
-                    choose_clasificacion.getItems().remove(borrada);
-                    choose_clasificaciones.getItems().remove(borrada);
-                    txt_Clasificacion.getItems().remove(borrada);
-                    txt_clasificacion.getItems().remove(borrada);
-                }
+            if (choose_clasificacion.getValue() == null) {
+                Alertas.advertencia("Selecciona la clasificacion que quieres eliminar.");
+                return;
             }
+            int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
+            Object borrada = choose_clasificacion.getItems().get(id);
+            String nombre = ((Clasificacion) borrada).getNombre();
+            if (!Alertas.confirmar("Eliminar clasificacion",
+                    "Seguro que quieres eliminar \"" + nombre + "\"?")) {
+                return;
+            }
+            clasificaciones.Eliminar(id);
+            choose_clasificacion.getItems().remove(borrada);
+            choose_clasificaciones.getItems().remove(borrada);
+            txt_Clasificacion.getItems().remove(borrada);
+            txt_clasificacion.getItems().remove(borrada);
             Limpiar();
         });
 
@@ -126,13 +128,12 @@ public class Clasificacion_Control {
     }
 
     private boolean NoVacios(String nombre, String descripcion) {
-        if (nombre.equals("") || descripcion.equals("")) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Por Favor llene todos lo campos");
-            alert.showAndWait();
-            return false;
-        } else {
+        try {
+            Validador.ValidarClasificacion(nombre, descripcion);
             return true;
+        } catch (Validacion ex) {
+            Alertas.advertencia(ex.getMessage());
+            return false;
         }
     }
 }

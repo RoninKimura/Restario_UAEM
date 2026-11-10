@@ -1,5 +1,7 @@
 package com.mycompany.recetario.uaem.Control;
 
+import com.mycompany.recetario.uaem.Excepciones.ExcepcionesArchivo;
+import com.mycompany.recetario.uaem.GUI.Alertas;
 import com.mycompany.recetario.uaem.GUI.Tarjetas_Recetas;
 import com.mycompany.recetario.uaem.GUI.User;
 import com.mycompany.recetario.uaem.GUI.Ventana_Receta;
@@ -143,10 +145,11 @@ public class User_Control {
         }
         try {
             Archivo_PDF.GenerarReceta(receta, destino);
-            new Alert(Alert.AlertType.INFORMATION, "Receta descargada correctamente").showAndWait();
-        } catch (Throwable ex) {
-            ex.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo generar el PDF").showAndWait();
+            Alertas.info("Receta descargada correctamente.");
+        } catch (ExcepcionesArchivo ex) {
+            Alertas.error(ex.getMessage());
+        } catch (RuntimeException ex) {
+            Alertas.error("Ocurrio un error inesperado al generar el PDF.");
         }
     }
 }

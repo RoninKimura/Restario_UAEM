@@ -1,5 +1,10 @@
 package com.mycompany.recetario.uaem.Control;
 
+import com.mycompany.recetario.uaem.Excepciones.ExcepcionesArchivo;
+import com.mycompany.recetario.uaem.Excepciones.Duplicado;
+import com.mycompany.recetario.uaem.Excepciones.Validacion;
+import com.mycompany.recetario.uaem.GUI.Alertas;
+import com.mycompany.recetario.uaem.Servicios.Validador;
 import com.mycompany.recetario.uaem.Archivos.Imagen;
 import com.mycompany.recetario.uaem.GUI.Admin;
 import com.mycompany.recetario.uaem.GUI.Ventana_Editar;
@@ -51,25 +56,28 @@ public class Editar_Control {
         });
 
         btn_Editar.setOnAction(e -> {
-            Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
-            if (clasificacion == null) {
-                return;
-            }
-            String nombreImagen = imagenActual;
-            if (imagenElegida != null) {
-                try {
+            try {
+                Clasificacion clasificacion = (Clasificacion) txt_Clasificacion.getValue();
+                Validador.ValidarReceta(txt_Titulo.getText(), txt_Descripcion.getText(),
+                        clasificacion, txt_Ingredientes.getText(), txt_Procedimiento.getText(),
+                        imagenElegida);
+                recetas.ValidarTitulo(txt_Titulo.getText(), id);
+
+                String nombreImagen = imagenActual;
+                if (imagenElegida != null) {
                     nombreImagen = Imagen.Guardar(imagenElegida);
-                } catch (Exception ex) {
-                    new Alert(Alert.AlertType.ERROR, "No se pudo guardar la imagen").showAndWait();
-                    return;
                 }
+                recetas.Editar(id, nombreImagen, txt_Titulo.getText().trim(),
+                        txt_Descripcion.getText().trim(), clasificacion.getNombre(),
+                        txt_Ingredientes.getText().trim(), txt_Procedimiento.getText().trim());
+                recetas_control.Actualizar_Tarjetas();
+                Limpiar();
+                admin.Ventanas(mostrar_recetas);
+            } catch (Validacion | Duplicado ex) {
+                Alertas.advertencia(ex.getMessage());
+            } catch (ExcepcionesArchivo ex) {
+                Alertas.error(ex.getMessage());
             }
-            recetas.Editar(id, nombreImagen, txt_Titulo.getText(), txt_Descripcion.getText(),
-                    clasificacion.getNombre(), txt_Ingredientes.getText(),
-                    txt_Procedimiento.getText());
-            recetas_control.Actualizar_Tarjetas();
-            Limpiar();
-            admin.Ventanas(mostrar_recetas);
         });
 
         btn_Cancelar.setOnAction(e -> {

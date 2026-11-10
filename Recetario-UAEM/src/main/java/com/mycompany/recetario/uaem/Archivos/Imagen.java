@@ -1,5 +1,7 @@
 package com.mycompany.recetario.uaem.Archivos;
 
+import com.mycompany.recetario.uaem.Excepciones.ExcepcionesArchivo;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,11 +18,15 @@ public class Imagen {
 
     private static final Path DIR = Paths.get("datos", "imagenes");
 
-    public static String Guardar(File origen) throws IOException {
-        Files.createDirectories(DIR);
-        String nombre = System.currentTimeMillis() + "_" + origen.getName().replace(" ", "_");
-        Files.copy(origen.toPath(), DIR.resolve(nombre), StandardCopyOption.REPLACE_EXISTING);
-        return nombre;
+    public static String Guardar(File origen) throws ExcepcionesArchivo {
+        try {
+            Files.createDirectories(DIR);
+            String nombre = System.currentTimeMillis() + "_" + origen.getName().replace(" ", "_");
+            Files.copy(origen.toPath(), DIR.resolve(nombre), StandardCopyOption.REPLACE_EXISTING);
+            return nombre;
+        } catch (IOException ex) {
+            throw new ExcepcionesArchivo("No se pudo guardar la imagen.", ex);
+        }
     }
 
     public static File Archivo(String nombre) {
