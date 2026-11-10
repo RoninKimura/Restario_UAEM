@@ -16,7 +16,7 @@ public class AdminRecetas {
     private int Id = 0;
     private ArrayList<Receta> recetas;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    
+
     public AdminRecetas() {
         recetas = Archivo_Excel.CargarRecetas();
         for (Receta r : recetas) {
@@ -36,7 +36,7 @@ public class AdminRecetas {
         System.out.print(recetas.size());
     }
 
-    public void Editar(int id,String Imagen, String Titulo, String Descripcion, String Clasificacion,
+    public void Editar(int id, String Imagen, String Titulo, String Descripcion, String Clasificacion,
             String Ingredientes, String Procedimiento) {
         Receta r = Buscar(id);
         if (r == null) {
@@ -77,5 +77,21 @@ public class AdminRecetas {
 
     public ArrayList<Receta> Obtener_Recetas() {
         return recetas;
+    }
+
+    public ArrayList<Receta> Filtrar(String clasificacion, String texto) {
+        ArrayList<Receta> resultado = new ArrayList<>();
+        String t = texto == null ? "" : texto.trim().toLowerCase();
+        for (Receta r : recetas) {
+            if (clasificacion != null && !clasificacion.equals(r.getCalsificacion())) {
+                continue;
+            }
+            if (!t.isEmpty() && !r.getTitulo().toLowerCase().contains(t)
+                    && !r.getIngredientes().toLowerCase().contains(t)) {
+                continue;
+            }
+            resultado.add(r);
+        }
+        return resultado;
     }
 }

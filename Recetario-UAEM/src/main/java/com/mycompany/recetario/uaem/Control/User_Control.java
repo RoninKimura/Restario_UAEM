@@ -19,6 +19,9 @@ import javafx.stage.*;
 
 public class User_Control {
 
+    private final Clasificacion todas = new Clasificacion("Todas", "", Color.WHITE);
+    private static User_Control abierta;
+    private static Stage ventana_abierta;
     private Receta receta;
     private final User user;
     private final Ventana_Recetas mostrar_recetas;
@@ -40,10 +43,16 @@ public class User_Control {
         btn_volver = ventana_receta.btn_volver();
         btn_download = ventana_receta.btn_download();
 
-        Clasificacion todas = new Clasificacion("Todas", "", Color.WHITE);
         combo.getItems().add(todas);
         combo.getItems().addAll(clasificaciones.Obtener_Clasificaciones());
         combo.setValue(todas);
+
+        Runnable buscar = () -> {
+            user.Ventanas(mostrar_recetas);
+            Actualizar_Tarjetas();
+        };
+        mostrar_recetas.btn_buscar().setOnAction(e -> buscar.run());
+        mostrar_recetas.txt_buscar().setOnAction(e -> buscar.run());
 
         combo.setOnAction(e -> {
             user.Ventanas(mostrar_recetas);
@@ -61,15 +70,12 @@ public class User_Control {
     }
 
     public void Actualizar_Tarjetas() {
-        Clasificacion filtro = (Clasificacion) combo.getValue();
+        Clasificacion c = (Clasificacion) combo.getValue();
+        String nombre = (c == null || c.getNombre().equals("Todas")) ? null : c.getNombre();
         var flow = mostrar_recetas.Obtener_Tarjetas();
         flow.getChildren().clear();
 
-        for (Receta r : recetas.Obtener_Recetas()) {
-            if (filtro != null && !filtro.getNombre().equals("Todas")
-                    && !filtro.getNombre().equals(r.getCalsificacion())) {
-                continue;
-            }
+        for (Receta r : recetas.Filtrar(nombre, mostrar_recetas.txt_buscar().getText())) {
 
             Tarjetas_Recetas tarjeta = new Tarjetas_Recetas();
             tarjeta.id = r.getid();
@@ -96,15 +102,29 @@ public class User_Control {
     }
 
     public static void Abrir(AdminRecetas recetas, AdminClasificaciones clasificaciones) {
+        if (ventana_abierta != null && ventana_abierta.isShowing()) {
+            abierta.Refrescar(clasificaciones);
+            ventana_abierta.toFront();
+            return;
+        }
         Ventana_Recetas mostrar_recetas = new Ventana_Recetas();
         User user = new User(mostrar_recetas);
-        new User_Control(user, mostrar_recetas, recetas, clasificaciones);
+        abierta = new User_Control(user, mostrar_recetas, recetas, clasificaciones);
 
         Stage user_stage = new Stage();
         user_stage.setScene(user.scene_user());
         user_stage.setResizable(false);
         user_stage.setTitle("Recetario UAEM");
         user_stage.show();
+        ventana_abierta = user_stage;
+    }
+
+    public void Refrescar(AdminClasificaciones clasificaciones) {
+        combo.getItems().setAll(todas);
+        combo.getItems().addAll(clasificaciones.Obtener_Clasificaciones());
+        combo.setValue(todas);
+        user.Ventanas(mostrar_recetas);
+        Actualizar_Tarjetas();
     }
 
     private void Descargar(Receta receta, Window ventana) {

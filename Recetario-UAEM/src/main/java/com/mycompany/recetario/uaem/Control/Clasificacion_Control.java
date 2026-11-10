@@ -72,6 +72,9 @@ public class Clasificacion_Control {
             Clasificacion seleccion = (Clasificacion) choose_clasificacion.getValue();
             txt_nombre.setText(seleccion.getNombre());
             txt_descripcion.setText(seleccion.getDescripcion());
+            if (seleccion == null) {
+                return;
+            }
         });
 
         btn_editar.setOnAction(e -> {
@@ -100,8 +103,12 @@ public class Clasificacion_Control {
                     alert.showAndWait();
                 } else {
                     int id = choose_clasificacion.getSelectionModel().getSelectedIndex();
+                    Object borrada = choose_clasificacion.getItems().get(id);
                     clasificaciones.Eliminar(id);
-                    choose_clasificacion.getItems().remove(id);
+                    choose_clasificacion.getItems().remove(borrada);
+                    choose_clasificaciones.getItems().remove(borrada);
+                    txt_Clasificacion.getItems().remove(borrada);
+                    txt_clasificacion.getItems().remove(borrada);
                 }
             }
             Limpiar();

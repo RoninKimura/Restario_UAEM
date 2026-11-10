@@ -43,9 +43,10 @@ public class Admin_control {
         var btn_excel = admin.Btn_Excel();
 
         btn_home.setOnAction(e -> {
-            var vbox = admin.Ventanas(mostrar_recetas);
-            vbox.getChildren().clear();
-            vbox.getChildren().add(mostrar_recetas.Tarjetas_Recetas());
+            admin.ComboBox_Admin().setValue(null);
+            mostrar_recetas.txt_buscar().setText("");
+            admin.Ventanas(mostrar_recetas);
+            recetas_control.Actualizar_Tarjetas();
         });
 
         btn_agregar.setOnAction(e -> {
