@@ -20,9 +20,14 @@ public class Ventana_Recetas {
         vbox = new VBox();
 
         vbox.getChildren().add(Buscador());
-        vbox.getChildren().add(Obtener_Tarjetas());
+        javafx.scene.control.ScrollPane scroll = new javafx.scene.control.ScrollPane(Obtener_Tarjetas());
+        scroll.setFitToWidth(true);
+        scroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setPrefViewportHeight(570);
+        scroll.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
+        vbox.getChildren().add(scroll);
 
-        vbox.setSpacing(20);
+        vbox.setSpacing(20); vbox.getStyleClass().add("app-shell"); flow.setHgap(18); flow.setVgap(18); flow.setPrefWrapLength(850); flow.setPadding(new javafx.geometry.Insets(6));
     }
 
     private HBox Buscador() {
@@ -36,7 +41,7 @@ public class Ventana_Recetas {
 
         hbox.setSpacing(10);
 
-        hbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER_LEFT); hbox.getStyleClass().add("search-bar"); txt_buscar.setPromptText("Busca por título o ingrediente..."); txt_buscar.setPrefWidth(520); btn_buscar.setDefaultButton(true);
 
         return hbox;
     }

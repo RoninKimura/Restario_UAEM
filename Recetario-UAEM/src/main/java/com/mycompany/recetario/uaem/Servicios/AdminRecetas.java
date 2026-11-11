@@ -86,8 +86,9 @@ public class AdminRecetas {
             if (clasificacion != null && !clasificacion.equals(r.getCalsificacion())) {
                 continue;
             }
-            if (!t.isEmpty() && !r.getTitulo().toLowerCase().contains(t)
-                    && !r.getIngredientes().toLowerCase().contains(t)) {
+            if (!t.isEmpty() && !seguro(r.getTitulo()).contains(t)
+                    && !seguro(r.getIngredientes()).contains(t)
+                    && !seguro(r.getDescripcion()).contains(t)) {
                 continue;
             }
             resultado.add(r);
@@ -95,7 +96,12 @@ public class AdminRecetas {
         return resultado;
     }
 
+    private String seguro(String valor) { return valor == null ? "" : valor.toLowerCase(java.util.Locale.ROOT); }
+
     public void ValidarTitulo(String titulo, int idIgnorar) throws Duplicado {
+        if (titulo == null || !titulo.trim().matches(".*[\\p{L}].*")) {
+            throw new Duplicado("El titulo debe contener al menos una letra; no se aceptan titulos formados solo por numeros.");
+        }
         if (ExisteTitulo(titulo, idIgnorar)) {
             throw new Duplicado("Ya existe una receta llamada \"" + titulo.trim() + "\".");
         }

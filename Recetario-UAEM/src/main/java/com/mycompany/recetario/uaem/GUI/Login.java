@@ -70,7 +70,7 @@ public class Login {
 
         mod_usuarios(vbox2, vbox3);
 
-        scene = new Scene(hbox, 500, 400);
+        hbox.getStyleClass().add("app-shell"); vbox1.getStyleClass().add("side-menu"); vbox2.getStyleClass().add("login-panel"); vbox3.getStyleClass().add("login-panel"); scene = new Scene(hbox, 980, 620); Estilos.aplicar(scene);
     }
 
     public Scene Obtener_Scene() {

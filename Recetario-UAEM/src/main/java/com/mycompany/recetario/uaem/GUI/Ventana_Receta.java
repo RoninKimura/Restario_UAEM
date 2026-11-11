@@ -46,7 +46,7 @@ public class Ventana_Receta {
         vbox.getChildren().add(lbl_ingredientes);
         vbox.getChildren().add(lbl_procedimiento);
         vbox.getChildren().add(btn_download);
-        vbox.setSpacing(10);
+        vbox.setSpacing(10); vbox.getStyleClass().add("form-panel"); vbox.setMaxWidth(820);
     }
 
     public void Cargar(Receta r) {

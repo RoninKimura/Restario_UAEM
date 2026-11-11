@@ -54,7 +54,7 @@ public class Admin {
         grid.add(Ventanas(mostrar_recetas), 1, 0);
         grid.add(menu, 0, 0);
 
-        scene = new Scene(grid, 500, 500);
+        menu.getStyleClass().add("side-menu"); ventanas.getStyleClass().add("content-panel"); grid.setHgap(22); grid.setPadding(new javafx.geometry.Insets(22)); grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(190)); grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints()); scene = new Scene(grid, 1180, 780); Estilos.aplicar(scene);
     }
 
     public VBox Ventanas(Ventana_Recetas mostrar_recetas) {

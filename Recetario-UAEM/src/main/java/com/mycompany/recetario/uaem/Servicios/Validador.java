@@ -17,6 +17,9 @@ public class Validador {
             String ingredientes, String procedimiento, File imagen) throws Validacion {
         Texto("El titulo", titulo, 3, 50, TITULO,
                 "solo puede tener letras, numeros, espacios y . , ' ( ) -");
+        if (titulo == null || !titulo.trim().matches(".*[\\p{L}].*")) {
+            throw new Validacion("El titulo debe contener al menos una letra; no se aceptan titulos formados solo por numeros.");
+        }
         Texto("La descripcion", descripcion, 5, 200, null, null);
         if (clasificacion == null) {
             throw new Validacion("Selecciona una clasificacion.");

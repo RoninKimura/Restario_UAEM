@@ -1,0 +1,20 @@
+
+.root { -fx-font-family: "Segoe UI", "Arial", sans-serif; -fx-font-size: 14px; -fx-background-color: linear-gradient(to bottom right, #fbf8ff, #f1efff 55%, #fff7fb); }
+.label { -fx-text-fill: #37324d; }
+.button { -fx-background-color: linear-gradient(to bottom right, #8b83b8, #6d659e); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 18; -fx-padding: 10 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(75,65,120,.16), 8, 0, 0, 3); }
+.button:hover { -fx-background-color: #5f578e; -fx-translate-y: -1; }
+.text-field, .password-field, .text-area, .combo-box { -fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #ddd7ef; -fx-border-radius: 12; -fx-border-width: 1.2; -fx-padding: 9; }
+.text-area .content { -fx-background-color: white; -fx-background-radius: 12; }
+.text-field:focused, .password-field:focused, .text-area:focused, .combo-box:focused { -fx-border-color: #9389c5; -fx-effect: dropshadow(gaussian, rgba(147,137,197,.18), 8, 0, 0, 0); }
+.app-shell { -fx-padding: 26; -fx-spacing: 18; }
+.side-menu { -fx-background-color: linear-gradient(to bottom, #7770a5, #4f4978); -fx-background-radius: 22; -fx-padding: 24 18; -fx-spacing: 14; -fx-effect: dropshadow(gaussian, rgba(50,43,85,.22), 18, 0, 0, 6); }
+.side-menu .label { -fx-text-fill: white; }
+.side-menu .button { -fx-background-color: rgba(255,255,255,.17); -fx-border-color: rgba(255,255,255,.3); -fx-border-radius: 16; }
+.side-menu .button:hover { -fx-background-color: rgba(255,255,255,.32); }
+.content-panel { -fx-background-color: rgba(255,255,255,.88); -fx-background-radius: 22; -fx-padding: 24; -fx-spacing: 18; }
+.search-bar { -fx-background-color: #f5f2fc; -fx-background-radius: 18; -fx-padding: 14; -fx-spacing: 12; }
+.recipe-card { -fx-background-color: white; -fx-background-radius: 18; -fx-padding: 14; -fx-border-color: #e8e2f4; -fx-border-radius: 18; -fx-effect: dropshadow(gaussian, rgba(63,54,98,.10), 12, 0, 0, 3); }
+.title-label { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #5d5688; }
+.subtitle-label { -fx-font-size: 13px; -fx-text-fill: #827b9e; }
+.form-panel { -fx-background-color: white; -fx-background-radius: 20; -fx-padding: 24; -fx-spacing: 10; }
+.login-panel { -fx-background-color: rgba(255,255,255,.92); -fx-background-radius: 26; -fx-padding: 34; -fx-spacing: 18; }

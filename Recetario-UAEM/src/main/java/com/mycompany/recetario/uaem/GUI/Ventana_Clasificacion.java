@@ -58,7 +58,7 @@ public class Ventana_Clasificacion {
         vbox.getChildren().add(choose_color);
         vbox.getChildren().add(hbox);
 
-        vbox.setSpacing(10);
+        vbox.setSpacing(10); vbox.getStyleClass().add("form-panel"); vbox.setMaxWidth(820);
     }
     public VBox VBox_Clasificacion(){
         return vbox;

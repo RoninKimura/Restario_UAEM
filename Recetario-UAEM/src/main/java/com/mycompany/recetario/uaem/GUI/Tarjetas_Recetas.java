@@ -58,7 +58,7 @@ public class Tarjetas_Recetas {
         vbox_tarjeta.getChildren().add(vbox);
         vbox_tarjeta.getChildren().add(hbox);
 
-        vbox_tarjeta.setSpacing(5);
+        vbox_tarjeta.setSpacing(9); vbox_tarjeta.setPrefWidth(245); vbox_tarjeta.setMinHeight(205); vbox_tarjeta.getStyleClass().add("recipe-card"); lbl_titulo.getStyleClass().add("title-label"); lbl_descripcion.setWrapText(true); lbl_descripcion.setMaxWidth(215); lbl_clasificacion.getStyleClass().add("subtitle-label");
 
         return vbox_tarjeta;
     }

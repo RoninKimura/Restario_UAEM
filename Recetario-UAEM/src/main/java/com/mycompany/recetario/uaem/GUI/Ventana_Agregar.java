@@ -69,7 +69,7 @@ public class Ventana_Agregar {
 
         vbox.getChildren().add(hbox);
 
-        vbox.setSpacing(10);
+        vbox.setSpacing(10); vbox.getStyleClass().add("form-panel"); vbox.setMaxWidth(820);
     }
 
     public VBox VBox_Agregar() {
