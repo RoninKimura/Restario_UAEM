@@ -22,10 +22,8 @@ public class Login_control {
 
     AdminRecetas recetas = new AdminRecetas();
     AdminClasificaciones clasificaciones = new AdminClasificaciones();
-//    String usuario = "Dul";
-//    String password = "sri257";
-    String usuario = "";
-    String password = "";
+    String usuario = "Eliud";
+    String password = "sri257";
 
     public Login_control(Login login, Stage stage) {
 
